@@ -1,0 +1,94 @@
+.form__container {
+  margin: 20px auto;
+  padding: 10px 0;
+  background-color: var(--primary);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 2px 6px 16px 1px var(--secondary);
+}
+
+.form__title {
+  font-size: 48px;
+  padding: 10px 0 20px;
+  color: white;
+}
+
+.form {
+  margin: 0 5px;
+  padding: 5px 10px;
+  border-radius: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.form__data {
+  width: 300px;
+  margin: 5px 20px;
+  padding: 5px 5px;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form__element-title {
+  font-family: var(--title-font);
+  font-size: 20px;
+  font-weight: 600;
+  color: white;
+  padding: 0 5px 0 10px;
+}
+
+.form__element {
+  width: 90%;
+  margin: 2px auto;
+  display: flex;
+  flex-direction: column;
+}
+.form__element-label {
+  font-family: var(--title-font);
+  font-size: 16px;
+  font-weight: 600;
+  padding-top: 10px;
+}
+
+.form__element-input {
+  padding: 0px 10px 5px;
+  background-color: transparent;
+  border-width: 0 0 1px 0;
+  border-color: white;
+  font-size: 16px;
+  font-family: var(--text-font);
+  transition: all 0.3s ease-in;
+}
+
+.form__element-input:focus, .form__element-input:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  border: none;
+  border-radius: 5px;
+}
+
+.info-msg {
+  width: 60%;
+  padding: 5px 10px;
+  margin: 5px;
+  text-align: center;
+  color: var(--primary);
+  border-radius: 5px;
+}
+
+.--error {
+  background-color: rgba(255, 0, 0, 0.466);
+  color: var(--text-color);
+}
+
+.--ok {
+  background-color: rgba(0, 128, 0, 0.589);
+  color: white;
+}

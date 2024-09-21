@@ -1,1 +1,67 @@
 /* You can add global styles to this file, and also import other style files */
+/* ? Imports */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+
+/*? limpiador */
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/*? Global*/
+
+:root {
+  --primary: #0bb8d8;
+  --secondary: rgb(4, 4, 11);
+  --light-bg: rgba(1, 153, 97, 0.164);
+  --text-color: rgb(20, 20, 20);
+  --text-font: "Nunito", system-ui;
+  --title-font: "Montserrat", system-ui;
+}
+
+html {
+  font-family: var(--text-font);
+  color: var(--secondary);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--title-font);
+  font-weight: 700;
+  color: var(--secondary);
+}
+
+main {
+  height: 80vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 5px auto;
+  font-size: 18px;
+  font-family: var(--title-font);
+  font-weight: 500;
+  color: white;
+  border: 2px solid white;
+  border-radius: 10px;
+  background-color: var(--primary);
+  transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+  color: var(--primary);
+  background-color: white;
+  transform: scale(1.1);
+}
+

@@ -1,0 +1,16 @@
+footer {
+    padding: 15px;
+    background-color: var(--light-bg);
+    font-family: var(--title-font);
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:5px;
+}
+
+.footer-author {
+    color: var(--primary);
+}
+
