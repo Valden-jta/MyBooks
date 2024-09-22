@@ -23,6 +23,5 @@ export class FooterComponent implements OnInit {
   
   anyo();
 
-  
  }
 }
