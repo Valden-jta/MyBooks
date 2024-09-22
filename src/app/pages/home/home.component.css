@@ -8,9 +8,9 @@
   color: white;
 }
 .home__wrapper {
-  width: 40%;
+  width: 60%;
   padding: 30px;
-  margin: 0 auto;
+  margin: 20px auto;
   background-color: var(--primary);
   border-radius: 15px;
   display: flex;
@@ -75,3 +75,34 @@
     text-transform: uppercase;
 }
 
+
+/* * Responsive */
+
+/* Tablets */
+@media  (max-width: 850px) {
+    .home__wrapper {
+        width: 100%;
+    }
+}
+
+/* Moviles */
+@media  (max-width: 640px) {
+    .home__wrapper {
+        text-align: center;
+    }
+
+    .home__banner {
+        flex-direction: column-reverse;
+        margin-bottom: 25px;
+    }
+
+    .home__logo {
+        width: 200px;
+    }
+
+    .home__text-content {
+        padding: 10px 5px;
+    }
+
+
+}
