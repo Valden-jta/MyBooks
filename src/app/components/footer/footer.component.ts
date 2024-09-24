@@ -6,22 +6,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./footer.component.css']
 })
 export class FooterComponent implements OnInit {
- constructor() {
+ 
+  anyoActual: number = 0;
+ 
+  constructor() {}
 
- }
- ngOnInit(): void {
-       
-  function anyo():HTMLSpanElement {
-    let anyo:number = 0;
-    let anyoContainer: HTMLSpanElement = document.querySelector('#year') as HTMLSpanElement;
-    window.addEventListener('DOMContentLoaded', () => {
-      anyo = new Date().getFullYear();
-      anyoContainer.innerHTML = anyo.toString();
-    });
-    return anyoContainer;
-  }
-  
-  anyo();
+  ngOnInit(): void {
 
+  this.anyoActual = this.getAnyo();
+         
  }
+
+getAnyo():number {
+  return new Date().getFullYear();
+}
 }

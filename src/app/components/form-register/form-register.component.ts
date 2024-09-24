@@ -3,38 +3,35 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-form-register',
   templateUrl: './form-register.component.html',
-  styleUrls: ['./form-register.component.css']
+  styleUrls: ['./form-register.component.css'],
 })
 export class FormRegisterComponent implements OnInit {
- constructor() {
 
- }
+  mensaje: string = 'esperando info';
+  msgClass: string = 'info-msg';
+  password:string = '';
+  passwordCheck:string = '';
+  
+  constructor() {}
 
- ngOnInit(): void {
-  document.addEventListener('DOMContentLoaded', () => {
-    const message: HTMLDivElement = document.querySelector('#msg') as HTMLDivElement;
-    const password: HTMLInputElement = document.querySelector('#password') as HTMLInputElement;
-    const passwordCheck: HTMLInputElement = document.querySelector('#password-repeat') as HTMLInputElement;
-    const formButton: HTMLButtonElement = document.querySelector('.form__button') as HTMLButtonElement;
-  
-    message.classList.remove('--error');
-    message.classList.remove('ok');
-  
-    formButton.addEventListener('click', checkPassword);
-  
-    function checkPassword(): void {
-      if (!(password.value === passwordCheck.value) || password.value == '' || passwordCheck.value == '') {
-        message.innerHTML = 'Las contraseñas no coinciden';
-        message.classList.remove('--ok');
-        message.classList.add('--error');
-      } else {
-        message.innerHTML = 'Todo está correcto';
-        message.classList.remove('--error');
-        message.classList.add('--ok');
-      }
+  ngOnInit(): void {}
+
+  checkPassword(password:string, passwordCheck:string): void {
+
+    this.password = password;
+    this.passwordCheck = passwordCheck;
+
+    if (password == '' ||
+      passwordCheck == '') {
+      this.mensaje = 'Debes introducir una contraseña';
+      this.msgClass = 'info-msg --error';
+    } else if (!(password === passwordCheck)){
+      this.mensaje = 'Las contraseñas no coinciden';
+      this.msgClass = 'info-msg --error';
+    } else {
+      this.mensaje = 'Todo correcto';
+      this.msgClass = 'info-msg --ok';
     }
-  });
-  
-  
-    }
+  }
 }
+

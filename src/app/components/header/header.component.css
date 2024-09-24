@@ -23,8 +23,7 @@
     transform: scale(1.2);
 }
 
-.nav-link:active {
-    border-bottom: 1px solid white;
+.nav-link.active {
     font-weight: 700;
 }
 
