@@ -20,15 +20,14 @@ export class ProfileComponent implements OnInit {
   public usuario: User;
   public isHidden: boolean;
   public password: string;
-  public newName:string;
-  public newLast_name:string;
-  public newEmail:string;
-  public newAdress:string;
+  public newName: string;
+  public newLast_name: string;
+  public newEmail: string;
+  public newAdress: string;
   public newPassword: string;
   public newPasswordCheck: string;
   public passwordConfirm: string;
 
-  // todo: meter todos los ngModels
 
   constructor() {
     this.usuario = new User(
@@ -54,29 +53,36 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {}
 
-   // Todo: completar funcion
-   public changePassword():void {
-      // comparar   public changePassword(): void {
+  public changePassword(): void {
+    // comparar   public changePassword(): void {
     if (this.newPassword !== this.newPasswordCheck) {
       alert('Las nuevas contraseñas no coinciden');
     } else {
       this.password = this.newPassword;
-    this.usuario.name = this.newName;
-    this.usuario.last_name = this.newLast_name;
-    this.usuario.email = this.newEmail;
-    this.usuario.address = this.newAdress;
+      this.usuario.name = this.newName;
+      this.usuario.last_name = this.newLast_name;
+      this.usuario.email = this.newEmail;
+      this.usuario.address = this.newAdress;
       alert('Datos de usuario actualizados');
+      console.log(this.usuario.name);
     }
   }
 
-  public editUser(newName:string, newLast_name:string, newEmail: string, newAddres:string, newPassword:string, newPasswordCheck:string, passwordConfirm:string): void {
-
-    
+  public editUser(
+    newName: string,
+    newLast_name: string,
+    newEmail: string,
+    newAddres: string,
+    newPassword: string,
+    newPasswordCheck: string,
+    passwordConfirm: string
+  ): void {
     this.newPassword = newPassword;
     this.newPasswordCheck = newPasswordCheck;
-    this.passwordConfirm = passwordConfirm
+    this.passwordConfirm = passwordConfirm;
 
-    !(this.password === passwordConfirm) ? alert('la contraseña actual introducida no es correcta') : this.changePassword();
+    !(this.password === passwordConfirm)
+      ? alert('la contraseña actual introducida no es correcta')
+      : this.changePassword();
   }
- 
 }
