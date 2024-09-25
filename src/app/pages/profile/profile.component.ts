@@ -15,6 +15,7 @@ export class ProfileComponent implements OnInit {
   // public email: string;
   // public password: string;
   // public address: string;
+  // public photo: string
   // nombreCompleto()
 
   public usuario: User;
@@ -24,9 +25,11 @@ export class ProfileComponent implements OnInit {
   public newLast_name: string;
   public newEmail: string;
   public newAdress: string;
+  public newPhoto: string;
   public newPassword: string;
   public newPasswordCheck: string;
   public passwordConfirm: string;
+  
 
 
   constructor() {
@@ -35,9 +38,10 @@ export class ProfileComponent implements OnInit {
       'Juan Jose',
       'Millás',
       'Juanjo_writer',
-      'juanj.millas@gmail.com',
+      'juanjo.millas@gmail.com',
       'C/ Piruleta 31, Barrio de Chocolate',
-      '1234'
+      '1234',
+      '../../../assets/img/profile-img/juan-jose-millas.jpeg'
     );
 
     this.isHidden = false;
@@ -49,11 +53,12 @@ export class ProfileComponent implements OnInit {
     this.newLast_name = '';
     this.newEmail = '';
     this.newAdress = '';
+    this.newPhoto = '';
   }
 
   ngOnInit(): void {}
 
-  public changePassword(): void {
+  public changeData(): void {
     // comparar   public changePassword(): void {
     if (this.newPassword !== this.newPasswordCheck) {
       alert('Las nuevas contraseñas no coinciden');
@@ -63,6 +68,7 @@ export class ProfileComponent implements OnInit {
       this.usuario.last_name = this.newLast_name;
       this.usuario.email = this.newEmail;
       this.usuario.address = this.newAdress;
+      this.usuario.photo = this.newPhoto;
       alert('Datos de usuario actualizados');
       console.log(this.usuario.name);
     }
@@ -73,6 +79,7 @@ export class ProfileComponent implements OnInit {
     newLast_name: string,
     newEmail: string,
     newAddres: string,
+    newPhoto: string,
     newPassword: string,
     newPasswordCheck: string,
     passwordConfirm: string
@@ -83,6 +90,6 @@ export class ProfileComponent implements OnInit {
 
     !(this.password === passwordConfirm)
       ? alert('la contraseña actual introducida no es correcta')
-      : this.changePassword();
+      : this.changeData();
   }
 }
