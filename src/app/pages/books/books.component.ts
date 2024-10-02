@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Book } from '../../models/book';
-import { FormBookComponent } from '../../components/form-book/form-book.component'
+import { FormGroup, FormBuilder, Validator } from '@angular/forms';
 
 @Component({
   selector: 'app-books',
@@ -8,17 +8,20 @@ import { FormBookComponent } from '../../components/form-book/form-book.componen
   styleUrls: ['./books.component.css'],
 })
 export class BooksComponent implements OnInit {
+  
+  //Select
   public books: Book[];
   public selectedFormat: number;
   public selectedPrice: number;
   public selectedBook: number;
-  public showPriceInput: { [key: string]: boolean } = {};
 
-  public newBook_id_user:number;
-  public newBook_title:string;
-  public newBook_author:string;
-  public newBook_genre:string;
+  // Registrar libro nuevo
+  public newBook_id_user: number;
+  public newBook_title: string;
+  public newBook_author: string;
+  public newBook_genre: string;
   public newBook_id_book: number;
+  public newBook_typeChecked: boolean[];
   public newBook_type: string[];
   public newBook_price: number[];
   public newBook_picture: string;
@@ -26,7 +29,7 @@ export class BooksComponent implements OnInit {
 
   constructor() {
 
-    
+
     this.selectedBook = 0;
     this.selectedFormat = 0;
     this.selectedPrice = 0;
@@ -35,11 +38,12 @@ export class BooksComponent implements OnInit {
     this.newBook_id_user = 0;
     this.newBook_title = '';
     this.newBook_type = [];
+    this.newBook_typeChecked = [false, false, false];
     this.newBook_genre = '';
     this.newBook_author = '';
     this.newBook_price = [];
     this.newBook_picture = '';
-    this.newBook = new Book(0,0,'',[],'','',[],'')
+    this.newBook = new Book(0, 0, '', [], '', '', [], '');
 
     this.books = [
       new Book(
@@ -441,23 +445,34 @@ export class BooksComponent implements OnInit {
         'Santiago Posteguillo',
         [21.99, 31.99],
         'https://m.media-amazon.com/images/I/81NTQW75bIL._UF1000,1000_QL80_.jpg'
-      )
+      ),
     ];
-
   }
 
   ngOnInit(): void {}
 
-  anyadirLibro(newBook_id_book:number, newBook_id_user:number, newBook_title:string, newBook_type:string[], newBook_genre:string, newBook_author:string,newBook_price:number[], newBook_picture:string, newBook:Book): void {
-    console.log(newBook_id_book);
-    console.log(newBook_id_user);
-    console.log(newBook_id_user);
-    newBook_type.forEach(type => console.log(type));
-    console.log(newBook_genre);
-    console.log(newBook_author);
-    newBook_price.forEach(price => console.log(price));
-    console.log(newBook_picture);
-   
+  anyadirLibro(
+    newBook_id_book: number,
+    newBook_id_user: number,
+    newBook_title: string,
+    newBook_type: string[],
+    newBook_genre: string,
+    newBook_author: string,
+    newBook_price: number[],
+    newBook_picture: string,
+    newBook: Book
+  ): void {
+    let type: string[] = [];
+    let price: number[] = [];
+    console.log('id_book ' + newBook_id_book);
+    console.log('id_user ' + newBook_id_user);
+    console.log('title ' + newBook_title);
+    console.log('Genre ' + newBook_genre);
+    console.log('Autor ' + newBook_author);
+    console.log('Url ' + newBook_picture);
+    console.log('Formato ' + newBook_type);
+    console.log('Precio ' + newBook_price);
+
     // newBook.id_book = newBook_id_book;
     // newBook.id_user = newBook_id_user;
     // newBook.title = newBook_id_user;
@@ -482,12 +497,5 @@ export class BooksComponent implements OnInit {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
-  }
-  togglePriceInput(format: string, event: any): void {
-    this.showPriceInput[format] = event.target.checked;
-  }
-
-  formatoNewBook(newBook_type:string, indice:number) {
-    this.newBook_type.push(newBook_type);
   }
 }

@@ -1,0 +1,45 @@
+<form [formGroup]="formBook">
+    <div class="form">
+        <fieldset id="personal-data" class="form__data">
+            <div class="form__element">
+                <label for="newBook_id_user" class="form__element-label">Usuario</label>
+                <input type="text" class="form__element-input" id="newBook_id_user" formControlName="usuario"/>
+            </div>
+            <div class="form__element">
+                <label for="newBook_title" class="form__element-label">Titulo</label>
+                <input type="text" class="form__element-input" id="newBook_title" formControlName="titulo"/>
+            </div>
+            <div class="form__element">
+                <label for="newBook_author" class="form__element-label">Autor</label>
+                <input type="text" class="form__element-input" id="newBook_author" formControlName="autor"/>
+            </div>
+            <div class="form__element">
+                <label for="newBook_genre" class="form__element-label">Género</label>
+                <input type="text" class="form__element-input" id="newBook_genre" formControlName="genero"/>
+            </div>
+            <div class="form__element">
+                <label for="picture" class="form__element-label">Imagen</label>
+                <input type="text" class="form__element-input" id="picture" formControlName="imagen"/>
+            </div>
+        </fieldset>
+        <fieldset id="personal-data" class="form__data">
+            <div class="form__element">
+                <label for="newBook_id_book" class="form__element-label">Referencia</label>
+                <input type="text" class="form__element-input" id="newBook_id_book" formControlName="referencia"/>
+            </div>
+            <div class="form__element">
+                <h6 class="form__element-label">Formato y precio</h6>
+                <div class="form__element">
+                    <div formArrayName="formato">
+                      <div class="form__element-row" *ngFor="let type of types; let i = index">
+                        <label [for]="'formato' + i" class="form__element-label">{{type.type}}</label>
+                        <input type="checkbox" [id]="'formato' + i" class="form__element-input" [formControlName]="i" [value]="type.type">
+                        <input *ngIf="formato.at(i).value" type="number" [id]="'precio' + i" class="form__element-input" formArrayName="precio" [formControlName]="i" placeholder="Precio"/>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+        </fieldset>
+    </div>
+    <button class="form__button" type="button" (click)="anyadirLibro(usuario, titulo, autor, genero, imagen, referencia, format, price)" [disabled]="formBook.invalid">Registrar libro</button>
+</form>
