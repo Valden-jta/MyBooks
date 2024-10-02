@@ -1,0 +1,142 @@
+<body>
+    <section *ngIf="books.length !== 0; else noBooks" class="books">
+        <div class="section__content">
+            <h1 class="section__title">Nuestra Biblioteca</h1>
+            <div class="section__row">
+                <p class="section__text">Esta es nuestra colección. Busca el libro que desees, y si no esta, rellena el
+                    formulario e interamenos conseguirlo.</p>
+                <app-form-search class="section__search-bar"></app-form-search>
+            </div>
+        </div>
+        <div class="section__content">
+            <div class="section__row animate__animated animate__backInLeft">
+                <div class="section__column --left --left-border">
+                    <div class="blob"></div>
+                </div>
+                <div class="section__column --right">
+                    <h2 class="section__subtitle --right">¿Eres escritor o escritora y quieres distribuir tu libro con
+                        nosotros?</h2>
+                    <p class="section__text">Si ya eres usuario, rellena el formulario con los datos de tu libro para
+                        que aparezca en el listado!</p>
+                    <button class="section__button" type="button" (click)="scroll('form-book')">Registra un
+                        libro</button>
+                </div>
+            </div>
+        </div>
+        <div class="card__container">
+            <ng-container *ngFor="let book of books">
+                <div class="card animate__animated animate__fadeIn">
+                    <img class="card__img" [src]="book.photo" alt="" />
+                    <div class="card__data">
+                        <h3 class="card__data-title">{{ book.title }}</h3>
+                        <div class="card__input-container">
+                            <label class="card__input-label" for="format">Formato</label>
+                            <select class="card__input" name="format" #format
+                                (change)="seleccionaFormato(format.value, book)">
+                                <option name="format" id="format" *ngFor="let type of book.type; let i = index"
+                                    [value]="i">
+                                    {{ type }}
+                                </option>
+                            </select>
+                        </div>
+                        <p class="card__data-content">{{ book.author }}</p>
+                        <p class="card__data-content">{{ book.genre }}</p>
+                        <div class="card__data-details">
+                            <p class="card__data--small">{{ book.id_book }}</p>
+                            <p class="card__data--price">{{ mostrarPrecio(book) }} €</p>
+                        </div>
+                        <button class="card__button" type="button">Comprar</button>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </section>
+    <ng-template #noBooks>
+        <div class="not-found books">
+            <div class="section__content">
+                <div class="section__row">
+                    <div class="section__column --left --left-border">
+                        <div class="blob--bg2"></div>
+                    </div>
+                    <div class="section__column --right">
+                        <h2 class="section__subtitle --right"> UUUUPPPS.... parece que la información que buscas no esta
+                            disponible</h2>
+                        <p class="section__text">Si ya eres usuario, rellena el formulario con los datos de tu libro
+                            para
+                            que aparezca en el listado!</p>
+                        <button class="section__button" type="button" (click)="scroll('form-book')">Registra un
+                            libro</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <section id="form-book">
+        <div class="form__container">
+            <h2 class="form__title">Regístra un nuevo libro</h2>
+            <form action="#" class="form">
+                <fieldset id="personal-data" class="form__data">
+                    <div class="form__element">
+                        <label for="newBook_id_user" class="form__element-label">Usuario</label>
+                        <input type="text" class="form__element-input" id="newBook_id_user" name="newBook_id_user"
+                            [(ngModel)]="newBook_id_user" />
+                    </div>
+                    <div class="form__element">
+                        <label for="newBook_title" class="form__element-label">Titulo</label>
+                        <input type="text" class="form__element-input" id="newBook_title" name="newBook_title"
+                            [(ngModel)]="newBook_title" />
+                    </div>
+                    <div class="form__element">
+                        <label for="newBook_author" class="form__element-label">Autor</label>
+                        <input type="text" class="form__element-input" id="newBook_author" name="newBook_author"
+                            [(ngModel)]="newBook_author" />
+                    </div>
+                    <div class="form__element">
+                        <label for="newBook_genre" class="form__element-label">Género</label>
+                        <input type="text" class="form__element-input" id="newBook_genre" name="newBook_genre"
+                            [(ngModel)]="newBook_genre" />
+                    </div>
+                    <div class="form__element">
+                        <label for="picture" class="form__element-label">Imagen</label>
+                        <input type="text" class="form__element-input" id="picture" name="picture"
+                            [(ngModel)]="newBook_picture" />
+                    </div>
+                </fieldset>
+                <fieldset id="personal-data" class="form__data">
+                    <div class="form__element">
+                        <label for="newBook_id_book" class="form__element-label">Referencia</label>
+                        <input type="text" class="form__element-input" id="newBook_id_book" name="newBook_id_book"
+                            [(ngModel)]="newBook_id_book" />
+                    </div>
+                    <div class="form__element">
+                        <h6 class="form__element-label">Formato y precio</h6>
+                        <div class="form__element">
+                            <div class="form__element-row">
+                                <label for="newBook_type" class="form__element-label">Ebook</label>
+                                <input type="checkbox" id="newBook_type" class="form__element-input" name="newBook_type"
+                                    value="ebook" (change)="formatoNewBook(newBook_type[0],0)">
+                                <input type="number" class="form__element-input" id="newBook_price" name="newBook_price"
+                                    placeholder="Precio" [ngClass]="newBook.type[0] === '' ? 'form__element-input' : 'visible'"[(ngModel)]="newBook_price[0]" />
+                            </div>
+                            <div class="form__element-row">
+                                <label for="newBook_type" class="form__element-label">Tapa dura</label>
+                                <input type="checkbox" id="newBook_type" class="form__element-input" name="newBook_type"
+                                    value="tapa dura" (change)="formatoNewBook(newBook_type[1],1)">
+                                <input type="number" class="form__element-input" id="newBook_price" name="newBook_price"
+                                    placeholder="Precio"  [ngClass]="newBook.type[1] === '' ? 'form__element-input' : 'visible'" [(ngModel)]="newBook_price[1]" />
+                            </div>
+                            <div class="form__element-row">
+                                <label for="newBook_type" class="form__element-label">Tapa blanda</label>
+                                <input type="checkbox" id="newBook_type" class="form__element-input" name="newBook_type"
+                                    value="tapa blanda" (change)="formatoNewBook(newBook_type[2],2)">
+                                <input type="number" class="form__element-input" id="newBook_price" name="newBook_price"
+                                    placeholder="Precio" [ngClass]="newBook.type[2] === '' ? 'form__element-input' : 'visible'"[(ngModel)]="newBook_price[2]" />
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            <button class="form__button" type="button" (click)="anyadirLibro(newBook_id_book, newBook_id_user, newBook_title, newBook_type, newBook_genre, newBook_author,newBook_price, newBook_picture, newBook)">Registrar libro</button>
+        </div>
+    </section>
+</body>

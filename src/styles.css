@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 /* ? Imports */
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
-
+@import '~animate.css/animate.min';
 /*? limpiador */
 
 * {
@@ -13,17 +13,18 @@
 /*? Global*/
 
 :root {
-  --primary: #0bb8d8;
-  --secondary: rgb(4, 4, 11);
+  --primary: #6600FF;
+  --secondary: #00CC99;
+  --gradient: linear-gradient(315deg, #00CC99 8%, rgba(102, 0, 255, 0.73) 69%, rgba(4, 4, 11, 0.72) 100%);
   --light-bg: rgba(1, 153, 97, 0.164);
-  --text-color: rgb(20, 20, 20);
+  --text-color: rgb(4, 4, 11);;
   --text-font: "Nunito", system-ui;
   --title-font: "Montserrat", system-ui;
 }
 
 html {
   font-family: var(--text-font);
-  color: var(--secondary);
+  color: var(--text-color);
 }
 
 h1,
@@ -34,7 +35,7 @@ h5,
 h6 {
   font-family: var(--title-font);
   font-weight: 700;
-  color: var(--secondary);
+  color: var(--primary);
 }
 
 main {
@@ -55,15 +56,20 @@ button {
   color: white;
   border: 2px solid white;
   border-radius: 10px;
-  background-color: var(--primary);
+  background-color: white;
+  background-image: var(--gradient);
   transition: all 0.3s ease-in-out;
 }
 
 button:hover {
-  color: var(--primary);
+  color: var(--secondary);
   background-color: white;
+  background-image: none;
+  border:2px solid var(--secondary);
   transform: scale(1.1);
+
 }
+
 
 
 /* *Responsive */

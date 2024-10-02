@@ -1,13 +1,14 @@
 .form__container {
     margin: 20px auto;
     padding: 10px 0;
-    background-color: var(--primary);
+    background-image: var(--gradient);
+    background-color: white;
     border-radius: 15px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    box-shadow: 2px 6px 16px 1px var(--secondary);
+    box-shadow: 2px 6px 16px 1px var(--text-color);
   }
   
   .form__title {
@@ -53,6 +54,7 @@
   }
   .form__element-label {
     font-family: var(--title-font);
+    color: var(--text-color);
     font-size: 16px;
     font-weight: 600;
     padding-top: 10px;
@@ -72,6 +74,50 @@
     background-color: rgba(255, 255, 255, 0.3);
     border: none;
     border-radius: 5px;
+  }
+
+  .form__element-row {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 15px auto;
+  }
+
+  .form__element-row .form__element-label {
+    white-space: nowrap;
+    width: 90px;
+    color: rgb(224, 224, 224);
+  }
+
+  .form__element-input[type="checkbox"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    font-size: 24px;
+    margin: 10px;
+    cursor: pointer;
+    background-color: white;
+  }
+
+  .form__element-input[type="checkbox"]:checked {
+    background: var(--secondary);
+    border-color: white;
+  }
+
+  .form__element-input[type="number"] {
+   display: none;
+  }
+
+  .visible {
+    width: 100px;
+    padding: 0px 10px 5px;
+    background-color: transparent;
+    border-width: 0 0 1px 0;
+    border-color: white;
+    font-size: 16px;
+    font-family: var(--text-font);
+    transition: all 0.3s ease-in;
   }
   
   .info-msg {

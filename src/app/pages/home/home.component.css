@@ -11,7 +11,8 @@
   width: 60%;
   padding: 30px;
   margin: 20px auto;
-  background-color: var(--primary);
+  background-image: var(--gradient);
+  background-color: white;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
@@ -71,7 +72,7 @@
 }
 
 .--upperCase {
-    color:var(--secondary);
+    color:var(--text-color);
     text-transform: uppercase;
 }
 
@@ -103,6 +104,4 @@
     .home__text-content {
         padding: 10px 5px;
     }
-
-
 }

@@ -10,6 +10,9 @@ import { FormRegisterComponent } from './components/form-register/form-register.
 import { HomeComponent } from './pages/home/home.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { BooksComponent } from './pages/books/books.component';
+import { FormBookComponent } from './components/form-book/form-book.component';
+import { FormSearchComponent } from './components/form-search/form-search.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,10 @@ import { ProfileComponent } from './pages/profile/profile.component';
     FormRegisterComponent,
     HomeComponent,
     RegisterComponent,
-    ProfileComponent
+    ProfileComponent,
+    BooksComponent,
+    FormBookComponent,
+    FormSearchComponent,
   ],
   imports: [
     BrowserModule,
