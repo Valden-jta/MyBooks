@@ -1,2 +1,11 @@
+.--50 {
+    width: 50%
+}
 
+.form__button-wrapper {
+    margin: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 

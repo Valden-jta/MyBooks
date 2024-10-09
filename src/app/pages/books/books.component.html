@@ -1,80 +1,104 @@
 <body>
-    <section *ngIf="books.length !== 0; else noBooks" class="books">
-        <div class="section__content">
-            <h1 class="section__title">Nuestra Biblioteca</h1>
-            <div class="section__row">
-                <p class="section__text">Esta es nuestra colección. Busca el libro que desees, y si no esta, rellena el
-                    formulario e interamenos conseguirlo.</p>
-                <app-form-search class="section__search-bar"></app-form-search>
+  <section *ngIf="books.length !== 0; else noBooks" class="books">
+    <div class="section__content">
+      <h1 class="section__title">Nuestra Biblioteca</h1>
+      <div class="section__row">
+        <p class="section__text">
+          Esta es nuestra colección. Busca el libro que desees, y si no esta,
+          rellena el formulario e interamenos conseguirlo.
+        </p>
+        <app-form-search class="section__search-bar"></app-form-search>
+      </div>
+    </div>
+    <div class="section__content">
+      <div class="section__row animate__animated animate__backInLeft">
+        <div class="section__column --left --left-border">
+          <div class="blob"></div>
+        </div>
+        <div class="section__column --right">
+          <h2 class="section__subtitle --right">
+            ¿Eres escritor o escritora y quieres distribuir tu libro con
+            nosotros?
+          </h2>
+          <p class="section__text">
+            Si ya eres usuario, rellena el formulario con los datos de tu libro
+            para que aparezca en el listado!
+          </p>
+          <button
+            class="section__button"
+            type="button"
+            (click)="scroll('form-book')"
+          >
+            Registra un libro
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="card__container">
+      <ng-container *ngFor="let book of books">
+        <div class="card animate__animated animate__fadeIn">
+          <img class="card__img" [src]="book.photo" alt="" />
+          <div class="card__data">
+            <h3 class="card__data-title">{{ book.title }}</h3>
+            <div class="card__input-container">
+              <label class="card__input-label" for="format">Formato</label>
+              <select
+                class="card__input"
+                name="format"
+                #format
+                (change)="seleccionaFormato(format.value, book)"
+              >
+                <option
+                  name="format"
+                  id="format"
+                  *ngFor="let type of book.type; let i = index"
+                  [value]="i"
+                >
+                  {{ type }}
+                </option>
+              </select>
             </div>
-        </div>
-        <div class="section__content">
-            <div class="section__row animate__animated animate__backInLeft">
-                <div class="section__column --left --left-border">
-                    <div class="blob"></div>
-                </div>
-                <div class="section__column --right">
-                    <h2 class="section__subtitle --right">¿Eres escritor o escritora y quieres distribuir tu libro con
-                        nosotros?</h2>
-                    <p class="section__text">Si ya eres usuario, rellena el formulario con los datos de tu libro para
-                        que aparezca en el listado!</p>
-                    <button class="section__button" type="button" (click)="scroll('form-book')">Registra un
-                        libro</button>
-                </div>
+            <p class="card__data-content">{{ book.author }}</p>
+            <p class="card__data-content">{{ book.genre }}</p>
+            <div class="card__data-details">
+              <p class="card__data--small">{{ book.id_book }}</p>
+              <p class="card__data--price">{{ mostrarPrecio(book) }} €</p>
             </div>
+            <button class="card__button" type="button">Comprar</button>
+          </div>
         </div>
-        <div class="card__container">
-            <ng-container *ngFor="let book of books">
-                <div class="card animate__animated animate__fadeIn">
-                    <img class="card__img" [src]="book.photo" alt="" />
-                    <div class="card__data">
-                        <h3 class="card__data-title">{{ book.title }}</h3>
-                        <div class="card__input-container">
-                            <label class="card__input-label" for="format">Formato</label>
-                            <select class="card__input" name="format" #format
-                                (change)="seleccionaFormato(format.value, book)">
-                                <option name="format" id="format" *ngFor="let type of book.type; let i = index"
-                                    [value]="i">
-                                    {{ type }}
-                                </option>
-                            </select>
-                        </div>
-                        <p class="card__data-content">{{ book.author }}</p>
-                        <p class="card__data-content">{{ book.genre }}</p>
-                        <div class="card__data-details">
-                            <p class="card__data--small">{{ book.id_book }}</p>
-                            <p class="card__data--price">{{ mostrarPrecio(book) }} €</p>
-                        </div>
-                        <button class="card__button" type="button">Comprar</button>
-                    </div>
-                </div>
-            </ng-container>
+      </ng-container>
+    </div>
+  </section>
+  <ng-template #noBooks>
+    <div class="not-found books">
+      <div class="section__content">
+        <div class="section__row">
+          <div class="section__column --left --left-border">
+            <div class="blob--bg2"></div>
+          </div>
+          <div class="section__column --right">
+            <h2 class="section__subtitle --right">
+              UUUUPPPS.... parece que la información que buscas no esta
+              disponible
+            </h2>
+            <p class="section__text">
+              Si ya eres usuario, rellena el formulario con los datos de tu
+              libro para que aparezca en el listado!
+            </p>
+            <button
+              class="section__button"
+              type="button"
+              (click)="scroll('form-book')"
+            >
+              Registra un libro
+            </button>
+          </div>
         </div>
-    </section>
-    <ng-template #noBooks>
-        <div class="not-found books">
-            <div class="section__content">
-                <div class="section__row">
-                    <div class="section__column --left --left-border">
-                        <div class="blob--bg2"></div>
-                    </div>
-                    <div class="section__column --right">
-                        <h2 class="section__subtitle --right"> UUUUPPPS.... parece que la información que buscas no esta
-                            disponible</h2>
-                        <p class="section__text">Si ya eres usuario, rellena el formulario con los datos de tu libro
-                            para
-                            que aparezca en el listado!</p>
-                        <button class="section__button" type="button" (click)="scroll('form-book')">Registra un
-                            libro</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </ng-template>
-    <section id="form-book">
-        <div class="form__container">
-            <h2 class="form__title">Regístra un nuevo libro</h2>
-            <app-form-book></app-form-book>
-        </div>
-    </section>
+      </div>
+    </div>
+  </ng-template>
+  <section id="form-book">
+    <app-form-book></app-form-book>
+  </section>
 </body>

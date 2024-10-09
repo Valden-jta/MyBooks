@@ -451,38 +451,7 @@ export class BooksComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  anyadirLibro(
-    newBook_id_book: number,
-    newBook_id_user: number,
-    newBook_title: string,
-    newBook_type: string[],
-    newBook_genre: string,
-    newBook_author: string,
-    newBook_price: number[],
-    newBook_picture: string,
-    newBook: Book
-  ): void {
-    let type: string[] = [];
-    let price: number[] = [];
-    console.log('id_book ' + newBook_id_book);
-    console.log('id_user ' + newBook_id_user);
-    console.log('title ' + newBook_title);
-    console.log('Genre ' + newBook_genre);
-    console.log('Autor ' + newBook_author);
-    console.log('Url ' + newBook_picture);
-    console.log('Formato ' + newBook_type);
-    console.log('Precio ' + newBook_price);
 
-    // newBook.id_book = newBook_id_book;
-    // newBook.id_user = newBook_id_user;
-    // newBook.title = newBook_id_user;
-    // newBook.type = newBook_type;
-    // newBook.genre = newBook_genre;
-    // newBook.author = newBook_author;
-    // newBook.price = newBook_price;
-    // newBook.photo = newBook_picture;
-    // this.books.push(newBook);
-  }
 
   seleccionaFormato(format: string, book: Book): void {
     book.selected = parseInt(format);
