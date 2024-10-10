@@ -1,5 +1,26 @@
 <body>
-  <section *ngIf="books.length !== 0; else noBooks" class="books">
+  <div class="section__content">
+    <div class="section__row animate__animated animate__backInLeft">
+      <div class="section__column --left --left-border">
+        <div class="blob"></div>
+      </div>
+      <div class="section__column --right">
+        <h2 class="section__subtitle --right">
+          ¿Eres escritor o escritora y quieres distribuir tu libro con
+          nosotros?
+        </h2>
+        <p class="section__text">
+          Si ya eres usuario, rellena el formulario con los datos de tu libro
+          para que aparezca en el listado!
+        </p>
+        <button class="section__button" type="button" (click)="scroll('form-book')">
+          Registra un libro
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <section *ngIf="bookList.length !== 0; else noBooks" class="books">
     <div class="section__content">
       <h1 class="section__title">Nuestra Biblioteca</h1>
       <div class="section__row">
@@ -7,64 +28,52 @@
           Esta es nuestra colección. Busca el libro que desees, y si no esta,
           rellena el formulario e interamenos conseguirlo.
         </p>
-        <app-form-search class="section__search-bar"></app-form-search>
+        <!--TODO: cambiar por un componente y crear servicio  -->
+        <form class="form__search">
+          <fieldset class="form__data --row">
+            <select name="selectAutor" #selectAuthor class="form__input">
+              <option value="" disabled selected>Autor</option>
+              <option *ngFor="let author of authorSet" [value]="author">{{author}}</option>
+            </select>
+            <select name="selectGenre" #selectGenre class="form__input">
+              <option value="" disabled selected>Género</option>
+              <option *ngFor="let genre of genreSet" [value]="genre">{{genre}}</option>
+            </select>
+            <select name="selectFormat" #selectFormat class="form__input">
+              <option value="" disabled selected>Formato</option>
+              <option *ngFor="let type of formatSet" [value]="type">{{type}}</option>
+            </select>
+          </fieldset>
+          <fieldset class="form__data --row">
+            <button type="button" (click)="reset()">Reset</button>
+            <button type="button" (click)="filtrar(selectAuthor.value, selectGenre.value, selectFormat.value)">Filtrar</button>
+          </fieldset>
+        </form>
+        <!--  -->
       </div>
     </div>
-    <div class="section__content">
-      <div class="section__row animate__animated animate__backInLeft">
-        <div class="section__column --left --left-border">
-          <div class="blob"></div>
-        </div>
-        <div class="section__column --right">
-          <h2 class="section__subtitle --right">
-            ¿Eres escritor o escritora y quieres distribuir tu libro con
-            nosotros?
-          </h2>
-          <p class="section__text">
-            Si ya eres usuario, rellena el formulario con los datos de tu libro
-            para que aparezca en el listado!
-          </p>
-          <button
-            class="section__button"
-            type="button"
-            (click)="scroll('form-book')"
-          >
-            Registra un libro
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="card__container">
-      <ng-container *ngFor="let book of books">
-        <div class="card animate__animated animate__fadeIn">
-          <img class="card__img" [src]="book.photo" alt="" />
-          <div class="card__data">
-            <h3 class="card__data-title">{{ book.title }}</h3>
-            <div class="card__input-container">
-              <label class="card__input-label" for="format">Formato</label>
-              <select
-                class="card__input"
-                name="format"
-                #format
-                (change)="seleccionaFormato(format.value, book)"
-              >
-                <option
-                  name="format"
-                  id="format"
-                  *ngFor="let type of book.type; let i = index"
-                  [value]="i"
-                >
+
+    <div class="myCard__container">
+      <ng-container *ngFor="let book of bookList let isEven = even">
+        <div class="myCard animate__animated animate__fadeIn">
+          <img class="myCard__img" [src]="book.photo" alt="" />
+          <div class="myCard__data">
+            <h3 class="myCard__data-title">{{ book.title }}</h3>
+            <div class="myCard__input-container">
+              <label class="myCard__input-label" for="format">Formato</label>
+              <select class="myCard__input" name="format" #format (change)="seleccionaFormato(format.value, book)">
+                <option name="format" id="format" *ngFor="let type of book.type; let i = index" [value]="i">
                   {{ type }}
                 </option>
               </select>
             </div>
-            <p class="card__data-content">{{ book.author }}</p>
-            <p class="card__data-content">{{ book.genre }}</p>
-            <div class="card__data-details">
-              <p class="card__data--small">{{ book.id_book }}</p>
-              <p class="card__data--price">{{ mostrarPrecio(book) }} €</p>
+            <p class="myCard__data-content">{{ book.author }}</p>
+            <p class="myCard__data-content">{{ book.genre }}</p>
+            <div class="myCard__data-details">
+              <p class="myCard__data--small">{{ book.id_book | formatBookId}}</p>
+              <p class="myCard__data--price">{{ mostrarPrecio(book) }} €</p>
             </div>
-            <button class="card__button" type="button">Comprar</button>
+            <button [ngClass]="isEven ? 'myCard__button' : 'myCard__button--alt'"  type="button">Comprar</button>
           </div>
         </div>
       </ng-container>
@@ -74,11 +83,8 @@
     <div class="not-found books">
       <div class="section__content">
         <div class="section__row">
-          <div class="section__column --left --left-border">
-            <div class="blob--bg2"></div>
-          </div>
-          <div class="section__column --right">
-            <h2 class="section__subtitle --right">
+          <div class="section__column --left">
+            <h2 class="section__subtitle --left">
               UUUUPPPS.... parece que la información que buscas no esta
               disponible
             </h2>
@@ -86,19 +92,123 @@
               Si ya eres usuario, rellena el formulario con los datos de tu
               libro para que aparezca en el listado!
             </p>
-            <button
-              class="section__button"
-              type="button"
-              (click)="scroll('form-book')"
-            >
-              Registra un libro
-            </button>
+            <div class="section__row --left">
+              <button class="section__button" type="button" (click)="scroll('form-book')">
+                Registra un libro
+              </button>
+              <button class="section__button" type="button" (click)="reset()">
+                Vuelve a buscar
+              </button>
+            </div>
+          </div>
+          <div class="section__column --right">
+            <div class="blob--bg2"></div>
           </div>
         </div>
       </div>
     </div>
   </ng-template>
   <section id="form-book">
-    <app-form-book></app-form-book>
+
+    <!--TODO: cambiar por un componente y crear servicio  -->
+    <div class="form__container --50">
+      <h2 class="form__title">Regístra un nuevo libro</h2>
+      <form [formGroup]="formBook" class="form">
+        <fieldset id="personal-data" class="form__data">
+          <div class="form__element">
+            <label for="newBook_id_user" class="form__element-label">Usuario</label>
+            <input type="text" class="form__element-input" id="newBook_id_user" formControlName="usuario"
+              [ngClass]="{'is-invalid': (formBook.get('usuario')?.dirty || formBook.get('usuario')?.touched) && !formBook.get('usuario')?.valid}"
+              placeholder="Id de usuario" />
+            <div
+              *ngIf="(formBook.get('usuario')?.dirty || formBook.get('usuario')?.touched) && !formBook.get('usuario')?.valid"
+              class="invalid--feedback">
+              Este campo es obligatorio
+            </div>
+          </div>
+          <div class="form__element">
+            <label for="newBook_title" class="form__element-label">Titulo</label>
+            <input type="text" class="form__element-input" id="newBook_title" formControlName="titulo"
+              [ngClass]="{'is-invalid': (formBook.get('titulo')?.dirty || formBook.get('titulo')?.touched) && !formBook.get('titulo')?.valid}"
+              placeholder="Título del libro" />
+            <div
+              *ngIf="(formBook.get('titulo')?.dirty || formBook.get('titulo')?.touched) && !formBook.get('titulo')?.valid"
+              class="invalid--feedback">
+              Este campo es obligatorio
+            </div>
+          </div>
+          <div class="form__element">
+            <label for="newBook_author" class="form__element-label">Autor</label>
+            <input type="text" class="form__element-input" id="newBook_author" formControlName="autor"
+              [ngClass]="{'is-invalid': (formBook.get('autor')?.dirty || formBook.get('autor')?.touched) && !formBook.get('autor')?.valid}"
+              placeholder="Autor del libro" />
+            <div
+              *ngIf="(formBook.get('autor')?.dirty || formBook.get('autor')?.touched) && !formBook.get('autor')?.valid"
+              class="invalid--feedback">
+              Este campo es obligatorio
+            </div>
+          </div>
+          <div class="form__element">
+            <label for="newBook_genre" class="form__element-label">Género</label>
+            <input type="text" class="form__element-input" id="newBook_genre" formControlName="genero"
+              [ngClass]="{'is-invalid': (formBook.get('genero')?.dirty || formBook.get('genero')?.touched) && !formBook.get('genero')?.valid}"
+              placeholder="Terror, ciencia ficción..." />
+            <div
+              *ngIf="(formBook.get('genero')?.dirty || formBook.get('genero')?.touched) && !formBook.get('genero')?.valid"
+              class="invalid--feedback">
+              Este campo es obligatorio
+            </div>
+          </div>
+          <div class="form__element">
+            <label for="picture" class="form__element-label">Imagen</label>
+            <input type="text" class="form__element-input" id="picture" formControlName="imagen"
+              [ngClass]="{'is-invalid': (formBook.get('imagen')?.dirty || formBook.get('imagen')?.touched) && !formBook.get('imagen')?.valid}"
+              placeholder="Url de la imagen" />
+            <div
+              *ngIf="(formBook.get('imagen')?.dirty || formBook.get('imagen')?.touched) && !formBook.get('imagen')?.valid"
+              class="invalid--feedback">
+              Este campo es obligatorio
+            </div>
+          </div>
+        </fieldset>
+        <fieldset id="personal-data" class="form__data">
+          <div class="form__element">
+            <label for="newBook_id_book" class="form__element-label">Referencia</label>
+            <input type="text" class="form__element-input" id="newBook_id_book" formControlName="referencia"
+              [ngClass]="{'is-invalid': (formBook.get('referencia')?.dirty || formBook.get('referencia')?.touched) && !formBook.get('referencia')?.valid}"
+              placeholder="Id del libro" />
+            <div
+              *ngIf="(formBook.get('referencia')?.dirty || formBook.get('referencia')?.touched) && !formBook.get('referencia')?.valid"
+              class="invalid--feedback">
+              Este campo es obligatorio
+            </div>
+          </div>
+          <div class="form__element">
+            <h6 class="form__element-label">Formato y precio</h6>
+            <div class="form__element-row">
+              <div formArrayName="formato">
+                <div class="form__element-row" *ngFor="let type of types; let i = index">
+                  <label [for]="'formato' + i" class="form__element-label">{{type.type}}</label>
+                  <input type="checkbox" [id]="'formato' + i" class="form__element-input" [formControlName]="i"
+                    (change)="togglePriceControl(i)">
+                </div>
+              </div>
+              <div formArrayName="precio">
+                <div class="form__element-row" *ngFor="let type of types; let i = index">
+                  <input type="number" [id]="'precio' + i" class="form__element-input" [formControlName]="i"
+                    placeholder="Precio" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <div class="form__button-wrapper">
+          <button class="form__button" type="button" (click)="anyadirLibro()" [disabled]="formBook.invalid">Registrar
+            libro</button>
+        </div>
+      </form>
+    </div>
+    <!--  -->
   </section>
+
 </body>

@@ -1,15 +1,15 @@
-<form class="form__search">
+<!-- <form class="form__search">
     <select name="selectAutor" #selectAutor class="form__input">
-        <option value="" disabled selected>Autor</option>
-        <option name="selectAutor" id="selectAutor" value="">Autores</option>   <!-- añadir ngFor* -->
+      <option value="" disabled selected>Autor</option>
+      <option *ngFor="let author of authorSet" [value]="author">{{author}}</option>
     </select>
     <select name="selectGenre" #selectGenre class="form__input">
-        <option value="" disabled selected>Género</option>
-        <option name="selectGenre" id="selectGenre" value="" >Géneros</option> <!-- añadir ngFor* -->
+      <option value="" disabled selected>Género</option>
+      <option *ngFor="let genre of genreSet" [value]="genre">{{genre}}</option>
     </select>
-    <select name="selectGenre" #selectGenre class="form__input">
-        <option value="" disabled selected>Formato</option>
-        <option name="selectGenre" id="selectGenre" value="" >Formatos</option> <!-- añadir ngFor* -->
+    <select name="selectFormat" #selectFormat class="form__input">
+      <option value="" disabled selected>Formato</option>
+      <option *ngFor="let type of formatSet" [value]="type">{{type}}</option>
     </select>
-    <button type="button">Filtrar</button> <!-- añadir (click) = "filtrar(autor, genero, formato)" -->
-</form>
+    <button type="button" (click)="filtrar(selectAutor.value, selectGenre.value, selectFormat.value)">Filtrar</button>
+  </form> -->

@@ -15,16 +15,7 @@ import {
   styleUrls: ['./form-book.component.css'],
 })
 export class FormBookComponent implements OnInit {
-  public usuario: string = '';
-  public titulo: string = '';
-  public autor: string = '';
-  public genero: string = '';
-  public imagen: string = '';
-  public referencia: string = '';
-  public format: string[] = [];
-  public price: number[] = [];
 
-  // Formulario
   public formBook!: FormGroup;
   public types: { type: string; price: number }[] = [
     { type: 'ebook', price: 0 },
@@ -32,6 +23,7 @@ export class FormBookComponent implements OnInit {
     { type: 'tapa dura', price: 0 },
   ];
 
+  //? Clase Book
   // newBook.id_book = newBook_id_book;
   // newBook.id_user = newBook_id_user;
   // newBook.title = newBook_title;
@@ -88,27 +80,18 @@ export class FormBookComponent implements OnInit {
     }
   }
 
-  anyadirLibro(
-    usuario: string,
-    titulo: string,
-    autor: string,
-    genero: string,
-    imagen: string,
-    referencia: string,
-    format: string[],
-    price: any
-  ) {
+  anyadirLibro() {
     // asignar los valores del formulario
-    usuario = this.formBook.get('usuario')?.value;
-    titulo = this.formBook.get('titulo')?.value;
-    autor = this.formBook.get('autor')?.value;
-    genero = this.formBook.get('genero')?.value;
-    imagen = this.formBook.get('imagen')?.value;
-    referencia = this.formBook.get('referencia')?.value;
-    format = this.formato.controls
+    let usuario = this.formBook.get('usuario')?.value;
+    let titulo = this.formBook.get('titulo')?.value;
+    let autor = this.formBook.get('autor')?.value;
+    let genero = this.formBook.get('genero')?.value;
+    let imagen = this.formBook.get('imagen')?.value;
+    let referencia = this.formBook.get('referencia')?.value;
+    let format = this.formato.controls
       .map((control, i) => (control.value ? this.types[i].type : ''))
       .filter((value) => value !== null);
-    price = this.precio.controls
+    let price = this.precio.controls
       .map((control, i) => (this.formato.at(i).value ? control.value : ''))
       .filter((value) => value !== null);
 
@@ -116,14 +99,13 @@ export class FormBookComponent implements OnInit {
     this.newBook.id_book = parseInt(referencia);
     this.newBook.id_user = parseInt(usuario);
     this.newBook.title = titulo;
-    this.newBook.type = format;
+    this.newBook.type = format.filter((valor) => valor !== '');
     this.newBook.genre = genero;
     this.newBook.author = autor;
-    this.newBook.price = price;
+    this.newBook.price = price.filter((valor) => valor !== '');
     this.newBook.photo = imagen;
 
     // Importar el libro al array books
-
     console.log(this.newBook);
   }
 

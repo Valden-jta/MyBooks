@@ -1,4 +1,4 @@
-.nav {
+.myNav {
     background-image: var(--gradient);
     padding: 0 50px 20px;
     margin: 0 auto;
@@ -10,7 +10,7 @@
     offset: 0px;
 }
 
-.nav-link {
+.myNav-link {
     font-family: var(--title-font);
     font-size: 24px;
     font-weight: 500;
@@ -20,23 +20,23 @@
     padding: 0 20px;
 }
 
-.nav-link:hover {
+.myNav-link:hover {
     color: var(--secondary);
     transform: scale(1.2);
 }
 
-.nav-link.active {
+.myNav-link.active {
     font-weight: 700;
     color: var(--primary);
 }
 
-.nav-brand {
+.myNav-brand {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
 }
-.nav-brand__img {
+.myNav-brand__img {
     width: 150px;
     height: 100px;
     object-fit: cover;

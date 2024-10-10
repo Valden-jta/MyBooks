@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Book } from '../../models/book';
-import { FormGroup, FormBuilder, Validator } from '@angular/forms';
+import {
+  FormGroup,
+  FormBuilder,
+  FormControl,
+  FormArray,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-books',
@@ -8,43 +14,46 @@ import { FormGroup, FormBuilder, Validator } from '@angular/forms';
   styleUrls: ['./books.component.css'],
 })
 export class BooksComponent implements OnInit {
-  
   //Select
   public books: Book[];
   public selectedFormat: number;
   public selectedPrice: number;
   public selectedBook: number;
 
-  // Registrar libro nuevo
-  public newBook_id_user: number;
-  public newBook_title: string;
-  public newBook_author: string;
-  public newBook_genre: string;
-  public newBook_id_book: number;
-  public newBook_typeChecked: boolean[];
-  public newBook_type: string[];
-  public newBook_price: number[];
-  public newBook_picture: string;
-  public newBook: Book;
+  //* Filtro
+  public bookList: Book[];
+  public authorSet: string[];
+  public selectAuthor: string;
+  public genreSet: string[];
+  public selectGenre: string;
+  public formatSet: string[];
+  public selectFormat: string;
+  // -------------
 
-  constructor() {
+  //* Formulario
+  public formBook!: FormGroup;
+  public types: { type: string; price: number }[] = [
+    { type: 'ebook', price: 0 },
+    { type: 'tapa blanda', price: 0 },
+    { type: 'tapa dura', price: 0 },
+  ];
+  public newBook: Book = new Book(0, 0, '', [], '', '', [], '', 0);
+  // -------------
 
-
+  /*
+  TODO: Cuando separe los componentes, el constructor debe quedar así
+constructor() {
     this.selectedBook = 0;
     this.selectedFormat = 0;
     this.selectedPrice = 0;
 
-    this.newBook_id_book = 0;
-    this.newBook_id_user = 0;
-    this.newBook_title = '';
-    this.newBook_type = [];
-    this.newBook_typeChecked = [false, false, false];
-    this.newBook_genre = '';
-    this.newBook_author = '';
-    this.newBook_price = [];
-    this.newBook_picture = '';
-    this.newBook = new Book(0, 0, '', [], '', '', [], '');
+    this.books = [..]
+  */
 
+  constructor(private formBuilder: FormBuilder) {
+    this.selectedBook = 0;
+    this.selectedFormat = 0;
+    this.selectedPrice = 0;
     this.books = [
       new Book(
         1,
@@ -447,11 +456,45 @@ export class BooksComponent implements OnInit {
         'https://m.media-amazon.com/images/I/81NTQW75bIL._UF1000,1000_QL80_.jpg'
       ),
     ];
+
+    //*  Formulario (eliminar al separar componentes)
+    this.buildForm();
+    // -----
+    //*  Filtro (eliminar al separar componentes)
+    this.bookList = this.books;
+    this.authorSet = [
+      'Todos',
+      ...new Set(this.books.map((book) => book.author)),
+    ];
+    this.selectAuthor = 'Todos';
+    this.genreSet = ['Todos', ...new Set(this.books.map((book) => book.genre))];
+    this.selectGenre = 'Todos';
+    this.formatSet = ['Todos', 'ebook', 'tapa blanda', 'tapa dura'];
+    this.selectFormat = 'Todos';
+  }
+
+  //* Formulario
+  private buildForm() {
+    this.formBook = this.formBuilder.group({
+      usuario: ['', Validators.required],
+      titulo: ['', Validators.required],
+      autor: ['', Validators.required],
+      genero: ['', Validators.required],
+      imagen: ['', Validators.required],
+      referencia: ['', Validators.required],
+      formato: this.formBuilder.array(
+        this.types.map((type) => new FormControl(false))
+      ),
+      precio: this.formBuilder.array(
+        this.types.map(
+          () =>
+            new FormControl({ value: '', disabled: true }, Validators.required)
+        )
+      ),
+    });
   }
 
   ngOnInit(): void {}
-
-
 
   seleccionaFormato(format: string, book: Book): void {
     book.selected = parseInt(format);
@@ -467,4 +510,74 @@ export class BooksComponent implements OnInit {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   }
+
+  //* Formulario
+  get formato(): FormArray {
+    return this.formBook.get('formato') as FormArray;
+  }
+
+  get precio(): FormArray {
+    return this.formBook.get('precio') as FormArray;
+  }
+
+  togglePriceControl(index: number): void {
+    const formatoControl = this.formato.at(index);
+    const precioControl = this.precio.at(index);
+    if (formatoControl.value) {
+      precioControl.enable();
+    } else {
+      precioControl.disable();
+    }
+  }
+
+  anyadirLibro() {
+    // asignar los valores del formulario
+    let usuario = this.formBook.get('usuario')?.value;
+    let titulo = this.formBook.get('titulo')?.value;
+    let autor = this.formBook.get('autor')?.value;
+    let genero = this.formBook.get('genero')?.value;
+    let imagen = this.formBook.get('imagen')?.value;
+    let referencia = this.formBook.get('referencia')?.value;
+    let format = this.formato.controls
+      .map((control, i) => (control.value ? this.types[i].type : ''))
+      .filter((value) => value !== null);
+    let price = this.precio.controls
+      .map((control, i) => (this.formato.at(i).value ? control.value : ''))
+      .filter((value) => value !== null);
+
+    // asignar los valores al objeto book
+    this.newBook.id_book = parseInt(referencia);
+    this.newBook.id_user = parseInt(usuario);
+    this.newBook.title = titulo;
+    this.newBook.type = format.filter((valor) => valor !== '');
+    this.newBook.genre = genero;
+    this.newBook.author = autor;
+    this.newBook.price = price.filter((valor) => valor !== '');
+    this.newBook.photo = imagen;
+
+    // Importar el libro al array books
+    this.importarLibro(this.books, this.newBook);
+    console.log(this.newBook);
+  }
+
+  importarLibro(arrayBooks: Book[], newBook: Book) {
+    arrayBooks.push(this.newBook);
+  }
+  // -------------
+
+  //* Filtro
+  filtrar(author: string, genre: string, type: string): Book[] {
+    this.bookList = this.books;
+    return (this.bookList = this.books.filter(
+      (book: Book) =>
+        (book.author == author || author == 'Todos' || author == '') &&
+        (book.genre == genre || genre == 'Todos' || genre == '') &&
+        (book.type.includes(type) || type == 'Todos' || type == '')
+    ));
+  }
+
+  reset(): void {
+    this.bookList = this.books;
+  }
+  // -------------
 }

@@ -1,5 +1,9 @@
+/* Eliminar al separar componentes */
+@import url('../../components/form-book/form-book.component.css');
+@import url('../../components/form-search/form-search.component.css');
+
 .books {
-    padding: 3% 15%;
+    padding: 1% 10%;
     background-color: #F6F6F6;
     display: flex;
     flex-direction: column;
@@ -55,15 +59,17 @@
     text-align: right;
 }
 
-.--left-border {
-    border-right: 1px solid var(--light-bg);
-    border-bottom: 1px solid var(--light-bg)
+.--center {
+    justify-content: flex-end;
 }
+
+
 
 .section__title {
     color: var(--text-color);
     width: 100%;
     font-size: 42px;
+    font-weight: 800;
     text-align: left;
     padding: 3% 0;
 }
@@ -71,6 +77,7 @@
 .section__subtitle {
     font-size: 32px;
     color: white;
+    font-weight: 600;
     width: 80%;
     padding: 10px 0;
 
@@ -78,7 +85,7 @@
 
 .section__text {
     width: 40%;
-    text-align: left;
+    text-align: right;
     font-size: 16px;
     padding: 10px 5px;
 }
@@ -149,16 +156,17 @@
 
 
 /**-------------- Cards --------------**/
-.card__container {
+.myCard__container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
-    align-items: stretch;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap:3%;
 }
-.card {
+.myCard {
     margin: 1% 0.5%;
-    max-width: 400px;
-    min-width: 400px;
+    max-width: 450px;
+    min-width: 450px;
     display: flex;
     justify-content: center;
     align-items: stretch;
@@ -170,18 +178,18 @@
     box-shadow: 6px 7px 21px -7px rgba(153,153,153,1);
 }
 
-.card__img-container {
+.myCard__img-container {
     width: 40%;
 
 }
 
-.card__img {
-    max-width: 150px;
-    object-position: contain;
+.myCard__img {
+    max-width: 200px;
+    object-position: cover;
     border-radius: 15px 0 0 15px;
 
 }
-.card__input-container {
+.myCard__input-container {
     width: 90%;
     padding: 5px 0;
     margin-bottom: 10px;
@@ -191,11 +199,11 @@
     border-bottom: 1px solid var(--primary);
 }
 
-.card__input-label {
+.myCard__input-label {
     text-align: left;
 }
 
-.card__data {
+.myCard__data {
     width: 60%;
     display: flex;
     flex-direction: column;
@@ -205,25 +213,26 @@
 
 }
 
-.card__data-title {
+.myCard__data-title {
     width: 100%;
     color: var(--text-color);
     text-align: center;
     padding: 5px 10px;
     margin-bottom: 10px;
     font-size: 20px;
+    font-weight: 700;
     border-bottom: 2px solid var(--light-bg);
     border-radius: 5px;
 }
 
-.card__data-content::before {
+.myCard__data-content::before {
     content: 'Autor:   ';
     font-weight: bold;
     font-size: 18px;
     color: var(--primary);
 }
 
-.card__data-content:last-of-type::before {
+.myCard__data-content:last-of-type::before {
     content: 'Género:   ';
     font-weight: bold;
     font-size: 18px;
@@ -231,7 +240,7 @@
 }
 
 
-.card__data-details {
+.myCard__data-details {
     padding: 10px 0;
     width: 100%;
     display:flex;
@@ -240,14 +249,20 @@
     text-align: center;
 }
 
-.card__data--small {
+.myCard__data--small {
     color:gray;
     font-style: italic;
 }
 
-.card__data--price {
+.myCard__data--price {
     font-size:18px;
     font-weight: 800;
+}
+
+.myCard__button--alt {
+    background:white;
+    border: 1px solid var(--primary);
+    color: var(--primary);
 }
 
 
