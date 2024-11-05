@@ -1,0 +1,28 @@
+<div class="myCard__container">
+<ng-container *ngFor="let book of bookListPadre let isEven = even">
+  <div class="myCard animate__animated animate__fadeIn">
+    <img class="myCard__img" [src]="book.photo" alt="" />
+    <div class="myCard__data">
+      <h3 class="myCard__data-title">{{ book.title }}</h3>
+      <div class="myCard__input-container">
+        <label class="myCard__input-label" for="format">Formato</label>
+        <select class="myCard__input" name="format" #format (change)="seleccionaFormato(format.value, book)">
+          <option name="format" id="format" *ngFor="let type of book.type; let i = index" [value]="i">
+            {{ type }}
+          </option>
+        </select>
+      </div>
+      <p class="myCard__data-content">{{ book.author }}</p>
+      <p class="myCard__data-content">{{ book.genre }}</p>
+      <div class="myCard__data-details">
+        <p class="myCard__data--small">{{ book.id_book | formatBookId}}</p>
+        <p class="myCard__data--price">{{ mostrarPrecio(book) }} €</p>
+      </div>
+      <div class ="button__container">
+          <button [ngClass]="isEven ? 'myCard__button' : 'myCard__button--alt'"  type="button">Comprar</button>
+        <button type="button" (click)="eliminar(book)"><i class="fa-solid fa-x"></i></button>
+      </div>
+    </div>
+  </div>
+</ng-container>
+</div>

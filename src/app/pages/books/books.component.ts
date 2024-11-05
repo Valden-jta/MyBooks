@@ -40,15 +40,6 @@ export class BooksComponent implements OnInit {
   public newBook: Book = new Book(0, 0, '', [], '', '', [], '', 0);
   // -------------
 
-  /*
-  TODO: Cuando separe los componentes, el constructor debe quedar así
-constructor() {
-    this.selectedBook = 0;
-    this.selectedFormat = 0;
-    this.selectedPrice = 0;
-
-    this.books = [..]
-  */
 
   constructor(private formBuilder: FormBuilder) {
     this.selectedBook = 0;
@@ -457,10 +448,10 @@ constructor() {
       ),
     ];
 
-    //*  Formulario (eliminar al separar componentes)
+    //*  Formulario
     this.buildForm();
     // -----
-    //*  Filtro (eliminar al separar componentes)
+    //*  Filtro
     this.bookList = this.books;
     this.authorSet = [
       'Todos',
@@ -496,13 +487,6 @@ constructor() {
 
   ngOnInit(): void {}
 
-  seleccionaFormato(format: string, book: Book): void {
-    book.selected = parseInt(format);
-  }
-
-  mostrarPrecio(book: Book): number {
-    return book.price[book.selected];
-  }
 
   scroll(sectionId: string): void {
     let element = document.getElementById(sectionId);
@@ -510,6 +494,12 @@ constructor() {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   }
+
+  //* Comunicación hijo-padre
+  borrarLibro(book: Book) {
+    let singleBook = this.books.indexOf(book);
+    this.books.splice(singleBook, 1);
+  } 
 
   //* Formulario
   get formato(): FormArray {

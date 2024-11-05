@@ -14,6 +14,7 @@ import { BooksComponent } from './pages/books/books.component';
 import { FormBookComponent } from './components/form-book/form-book.component';
 import { FormSearchComponent } from './components/form-search/form-search.component';
 import { FormatBookIdPipe } from './pipes/format-book-id.pipe';
+import { CardsComponent } from './components/cards/cards.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { FormatBookIdPipe } from './pipes/format-book-id.pipe';
     FormBookComponent,
     FormSearchComponent,
     FormatBookIdPipe,
+    CardsComponent,
   ],
   imports: [
     BrowserModule,

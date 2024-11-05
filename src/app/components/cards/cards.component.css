@@ -1,0 +1,128 @@
+.myCard__container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap:3%;
+}
+.myCard {
+    margin: 1% 0.5%;
+    max-width: 450px;
+    min-width: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 10px;
+    border-radius: 15px;
+    border: 1px solid rgba(0,0,0, 0.1);
+    -webkit-box-shadow: 6px 7px 21px -7px rgba(153,153,153,1);
+    -moz-box-shadow: 6px 7px 21px -7px rgba(153,153,153,1);
+    box-shadow: 6px 7px 21px -7px rgba(153,153,153,1);
+}
+
+.myCard__img-container {
+    width: 40%;
+
+}
+
+.myCard__img {
+    max-width: 200px;
+    object-position: cover;
+    border-radius: 15px 0 0 15px;
+
+}
+.myCard__input-container {
+    width: 90%;
+    padding: 5px 0;
+    margin-bottom: 10px;
+    align-self: center;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--primary);
+}
+
+.myCard__input-label {
+    text-align: left;
+}
+
+.myCard__data {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    padding: 15px 5px;
+
+}
+
+.myCard__data-title {
+    width: 100%;
+    color: var(--text-color);
+    text-align: center;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    border-bottom: 2px solid var(--light-bg);
+    border-radius: 5px;
+}
+
+.myCard__data-content::before {
+    content: 'Autor:   ';
+    font-weight: bold;
+    font-size: 18px;
+    color: var(--primary);
+}
+
+.myCard__data-content:last-of-type::before {
+    content: 'Género:   ';
+    font-weight: bold;
+    font-size: 18px;
+    color: var(--primary);
+}
+
+
+.myCard__data-details {
+    padding: 10px 0;
+    width: 100%;
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+}
+
+.myCard__data--small {
+    color:gray;
+    font-style: italic;
+}
+
+.myCard__data--price {
+    font-size:18px;
+    font-weight: 800;
+}
+
+.myCard__button--alt {
+    background:white;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+}
+
+.button__container {
+    width: 100%;
+    padding: 10px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 10px;
+  
+}
+
+/* ================== Responsive ================ */
+
+/* movil */
+@media (max-width:767px) {
+    .myCard {
+        margin: 10px 5px; 
+    }
+}
