@@ -11,8 +11,6 @@ import { HomeComponent } from './pages/home/home.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { BooksComponent } from './pages/books/books.component';
-import { FormBookComponent } from './components/form-book/form-book.component';
-import { FormSearchComponent } from './components/form-search/form-search.component';
 import { FormatBookIdPipe } from './pipes/format-book-id.pipe';
 import { CardsComponent } from './components/cards/cards.component';
 
@@ -26,8 +24,6 @@ import { CardsComponent } from './components/cards/cards.component';
     RegisterComponent,
     ProfileComponent,
     BooksComponent,
-    FormBookComponent,
-    FormSearchComponent,
     FormatBookIdPipe,
     CardsComponent,
   ],
