@@ -13,6 +13,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { BooksComponent } from './pages/books/books.component';
 import { FormatBookIdPipe } from './pipes/format-book-id.pipe';
 import { CardsComponent } from './components/cards/cards.component';
+import { AddBookComponent } from './pages/add-book/add-book.component';
+import { UpdateBookComponent } from './pages/update-book/update-book.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import { CardsComponent } from './components/cards/cards.component';
     BooksComponent,
     FormatBookIdPipe,
     CardsComponent,
+    AddBookComponent,
+    UpdateBookComponent,
   ],
   imports: [
     BrowserModule,
