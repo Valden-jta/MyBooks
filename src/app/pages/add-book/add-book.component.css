@@ -1,10 +1,22 @@
-.--50 {
-    width: 50%
+.add-book {
+    background-image: url('https://img.freepik.com/foto-gratis/arreglo-libros-vista-superior_23-2148882754.jpg?t=st=1731353559~exp=1731357159~hmac=657dedd936bcd9a8a4ff9658f652f2e9bcb6e16c4c0bc502a0924841c13712a8&w=1380');
+    padding: 3% 10%;
 }
 
-.form__button-wrapper {
-    margin: 2%;
+.card__conditional-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.card__conditional-title {
+    font-weight: 600;
+    color: white;
+    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    padding-bottom: 1%;
+}
+
+.card__conditional {
+    padding: 1% 0;
 }

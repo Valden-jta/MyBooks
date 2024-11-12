@@ -21,8 +21,6 @@ export class Book {
         this.selected = selected;
     }
 
-
-
     showPrice(i:number):number {
         return this.price[i];
     }

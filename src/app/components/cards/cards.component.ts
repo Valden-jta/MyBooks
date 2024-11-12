@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { Book } from '../../models/book';
 import { EventEmitter } from '@angular/core';
+import { BooksService} from '../../shared/books.service'
+
 
 @Component({
   selector: 'app-cards',
@@ -10,11 +12,13 @@ import { EventEmitter } from '@angular/core';
 export class CardsComponent implements OnInit {
  
   // Comunicación entre componentes  
+
   @Input() bookListPadre!: Book[];
+  @Input() addedBook!: Book;
   @Output() eliminarLibro = new EventEmitter<Book>();
 
-  constructor() { 
-    
+  constructor(public booksService: BooksService) { 
+
   }
 
   ngOnInit(): void {

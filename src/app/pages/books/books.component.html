@@ -6,15 +6,18 @@
       </div>
       <div class="section__column --right">
         <h2 class="section__subtitle --right">
-          ¿Eres escritor o escritora y quieres distribuir tu libro con
-          nosotros?
+          ¿Eres escritor o escritora y quieres distribuir tu libro con nosotros?
         </h2>
         <p class="section__text">
           Si ya eres usuario, rellena el formulario con los datos de tu libro
           para que aparezca en el listado!
         </p>
         <!-- TODO: routing a pagina addBook -->
-        <button class="section__button" type="button" (click)="scroll('form-book')">
+        <button
+          class="section__button"
+          type="button"
+          (click)="scroll('form-book')"
+        >
           Registra un libro
         </button>
       </div>
@@ -26,35 +29,42 @@
       <h1 class="section__title">Nuestra Biblioteca</h1>
       <div class="section__row">
         <p class="section__text">
-          Esta es nuestra colección. Busca el libro que desees, y si no esta,
-          rellena el formulario e interamenos conseguirlo.
+          <!-- Todo: añadir routing al enlace  -->
+          Esta es nuestra colección. Introduce el identificador del libro, y si
+          no esta, rellena el <a routerLink="/add">formulario</a> e interamenos
+          conseguirlo.
         </p>
 
         <form class="form__search">
           <fieldset class="form__data --row">
-            <select name="selectAutor" #selectAuthor class="form__input">
-              <option value="" disabled selected>Autor</option>
-              <option *ngFor="let author of authorSet" [value]="author">{{author}}</option>
-            </select>
-            <select name="selectGenre" #selectGenre class="form__input">
-              <option value="" disabled selected>Género</option>
-              <option *ngFor="let genre of genreSet" [value]="genre">{{genre}}</option>
-            </select>
-            <select name="selectFormat" #selectFormat class="form__input">
-              <option value="" disabled selected>Formato</option>
-              <option *ngFor="let type of formatSet" [value]="type">{{type}}</option>
-            </select>
+            <div class="form__element">
+              <label for="selectId" class="form__element-label"
+                >Referencia</label
+              >
+              <input
+                class="form__element-input"
+                type="number"
+                name="selectId"
+                #selectId
+                placeholder="Id del libro"
+              />
+            </div>
           </fieldset>
           <fieldset class="form__data --row">
             <button type="button" (click)="reset()">Reset</button>
-            <button type="button" (click)="filtrar(selectAuthor.value, selectGenre.value, selectFormat.value)">Filtrar</button>
+            <button type="button" (click)="filtrar(+selectId.value)">
+              Filtrar
+            </button>
           </fieldset>
         </form>
         <!--  -->
       </div>
     </div>
-      <!-- Cards -->
-     <app-cards (eliminarLibro)="borrarLibro($event)" [bookListPadre] = 'bookList'></app-cards>
+    <!-- Cards -->
+    <app-cards
+      (eliminarLibro)="borrarLibro($event)"
+      [bookListPadre]="bookList"
+    ></app-cards>
   </section>
   <ng-template #noBooks>
     <div class="not-found books">
@@ -71,7 +81,11 @@
             </p>
             <div class="section__row --left">
               <!-- TODO: routing a pagina addBook -->
-              <button class="section__button" type="button" (click)="scroll('form-book')">
+              <button
+                class="section__button"
+                type="button"
+                (click)="scroll('form-book')"
+              >
                 Registra un libro
               </button>
               <button class="section__button" type="button" (click)="reset()">

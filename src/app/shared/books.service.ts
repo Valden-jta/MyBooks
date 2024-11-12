@@ -419,7 +419,7 @@ export class BooksService implements OnInit {
   }
 
   getOne(id_libro: number): Book {
-    return this.books.find((book) => book.id == id_libro);
+    return this.books.filter((book) => book.id_book === id_libro)[0];
   }
 
   add(book: Book): void {
@@ -427,11 +427,36 @@ export class BooksService implements OnInit {
   }
 
   edit(book: Book): boolean {
-
+      let searchId = book.id_book
+      let oldBook = this.getOne(searchId);
+      if (oldBook) {
+        oldBook.id_user = book.id_user;
+        oldBook.title = book.title;
+        oldBook.type = book.type;
+        oldBook.genre = book.genre;
+        oldBook.author = book.author;
+        oldBook.price = book.price;
+        oldBook.photo = book.photo;
+        oldBook.selected = book.selected;
+        alert('Libro editado correctamente');
+        return true;
+      } else {
+        alert('El id del libro no existe');
+        return false;
+      }
   }
 
   delete(id_book:number): boolean {
-    
+    let searchBook = this.getOne(id_book);
+    if (searchBook) {
+      let deletedBook = this.books.indexOf(searchBook);
+      this.books.splice(deletedBook, 1);
+      alert('Libro eliminado correctamente');
+      return true;
+    } else {
+      alert('El id del libro no existe');
+      return false;
+    }
   }
 
   ngOnInit(): void {

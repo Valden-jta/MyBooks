@@ -1,12 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Book } from '../../models/book';
-import {
-  FormGroup,
-  FormBuilder,
-  FormControl,
-  FormArray,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
+import { BooksService } from 'src/app/shared/books.service';
+import { Book } from 'src/app/models/book';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-book',
@@ -15,7 +11,10 @@ import {
 })
 export class AddBookComponent implements OnInit {
 
-  public books!: Book[];
+  public books: Book[] = [];
+  public book!: Book;
+  public addedBook!: Book;
+  public ref:number;
 
   public formBook!: FormGroup;
   public types: { type: string; price: number }[] = [
@@ -23,11 +22,13 @@ export class AddBookComponent implements OnInit {
     { type: 'tapa blanda', price: 0 },
     { type: 'tapa dura', price: 0 },
   ];
-  public newBook: Book = new Book(0, 0, '', [], '', '', [], '', 0);
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+              public booksService: BooksService,
+            private router: Router) {
    this.buildForm();
-}
+   this.ref = this.setReference(); 
+  }
 
   private buildForm() {
     this.formBook = this.formBuilder.group({
@@ -36,7 +37,6 @@ export class AddBookComponent implements OnInit {
       autor: ['', Validators.required],
       genero: ['', Validators.required],
       imagen: ['', Validators.required],
-      referencia: ['', Validators.required],
       formato: this.formBuilder.array(
         this.types.map((type) => new FormControl(false))
       ),
@@ -48,8 +48,9 @@ export class AddBookComponent implements OnInit {
       ),
     });
   }
+
   ngOnInit(): void {
-      
+    this.books = this.booksService.getAll();
   }
 
   get formato(): FormArray {
@@ -70,14 +71,19 @@ export class AddBookComponent implements OnInit {
     }
   }
 
+  setReference(): number {
+    return this.booksService.getAll().length + 1;
+    
+     
+  }
+
   anyadirLibro() {
-    // asignar los valores del formulario
     let usuario = this.formBook.get('usuario')?.value;
     let titulo = this.formBook.get('titulo')?.value;
     let autor = this.formBook.get('autor')?.value;
     let genero = this.formBook.get('genero')?.value;
     let imagen = this.formBook.get('imagen')?.value;
-    let referencia = this.formBook.get('referencia')?.value;
+    let referencia = this.setReference(); // Obtén el próximo ID de referencia de manera automática
     let format = this.formato.controls
       .map((control, i) => (control.value ? this.types[i].type : ''))
       .filter((value) => value !== null);
@@ -85,24 +91,40 @@ export class AddBookComponent implements OnInit {
       .map((control, i) => (this.formato.at(i).value ? control.value : ''))
       .filter((value) => value !== null);
 
-    // asignar los valores al objeto book
-    this.newBook.id_book = parseInt(referencia);
-    this.newBook.id_user = parseInt(usuario);
-    this.newBook.title = titulo;
-    this.newBook.type = format.filter((valor) => valor !== '');
-    this.newBook.genre = genero;
-    this.newBook.author = autor;
-    this.newBook.price = price.filter((valor) => valor !== '');
-    this.newBook.photo = imagen;
+    let newBook = new Book (
+      referencia,
+      parseInt(usuario),
+      titulo,
+      format.filter((valor) => valor !== ''),
+      genero,
+      autor,
+      price.filter((valor) => valor !== '').map(Number), // Asegúrate de que price es un array de números
+      imagen,
+      0
+    );
 
-    // Importar el libro al array books
-    this.importarLibro(this.books, this.newBook);
-    console.log(this.newBook);
+    this.booksService.add(newBook);
+    this.addedBook = newBook; // Mantén una referencia al último libro añadido
+    alert('Libro añadido correctamente');
+    this.books = this.booksService.getAll(); // Actualiza la lista de libros
+    this.ref = this.setReference(); // Actualiza la referencia después de añadir un libro
   }
 
-  importarLibro(arrayBooks: Book[], newBook: Book) {
-    arrayBooks.push(this.newBook);
+  eliminarLibro(book: Book): void {
+    const index = this.books.indexOf(book);
+    if (index > -1) {
+      this.books.splice(index, 1);
+    }
   }
-  // -------------
 
+  targetBook(id: number): void {
+    this.router.navigate(['/books']).then(() => {
+      setTimeout(() => {
+        let card = document.querySelector('#card_' + id);
+        if (card) {
+          card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 500);
+    });
+  }
 }
