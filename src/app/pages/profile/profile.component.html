@@ -1,4 +1,4 @@
-<body>
+
     <main class="profile">
         <div class="profile__wrapper">
             <div class="profile__data">
@@ -31,13 +31,13 @@
                 <form class="form-edit" action="#">
                     <legend class="form-edit__title">Modificar Datos</legend>
                     <input class="form-edit__input" type="text" name="nombre" id="nombre" placeholder="Nombre" [(ngModel)]="newName"/>
-                    <input class="form-edit__input" type="text" name="Apellidos" id="Apellidos"
+                    <input class="form-edit__input" type="text" name="apellidos" id="apellidos"
                         placeholder="Apellidos" [(ngModel)]="newLast_name"/>
-                    <input class="form-edit__input" type="text" name="mail" id="mail"
+                    <input class="form-edit__input" type="email" name="mail" id="mail"
                         placeholder="Correo electrónico" [(ngModel)]="newEmail"/>
                     <input class="form-edit__input" type="text" name="direccion" id="direccion"
-                        placeholder="Dirección" [(ngModel)]="newAdress"/>
-                    <input class="form-edit__input" type="text" name="photo" id="phot"
+                        placeholder="Dirección" [(ngModel)]="newAddress"/>
+                    <input class="form-edit__input" type="text" name="photo" id="photo"
                         placeholder="URL de la imagen" [(ngModel)]="newPhoto"/>
                     <legend class="form-edit__title">Cambiar la contraseña</legend>
                     <input class="form-edit__input" type="password" name="newPassword" id="newPassword" [(ngModel)]="newPassword"
@@ -48,9 +48,8 @@
                     <input class="form-edit__input" type="password" name="password" id="passwordConfirm" [(ngModel)]="passwordConfirm">
                     <div class="form-edit--confirm" [hidden]="isHidden">
                     </div>
-                    <button class="form-edit__button" (click)="editUser(newName, newLast_name, newEmail, newAdress,newPhoto, newPassword, newPasswordCheck, passwordConfirm)">Guardar cambios</button>
+                    <button class="form-edit__button" (click)="editUser(newName, newLast_name, newEmail, newAddress,newPhoto, newPassword, newPasswordCheck, passwordConfirm)">Guardar cambios</button>
                 </form>
             </div>
         </div>
     </main>
-</body>

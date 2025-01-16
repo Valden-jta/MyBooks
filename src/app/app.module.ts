@@ -15,6 +15,8 @@ import { FormatBookIdPipe } from './pipes/format-book-id.pipe';
 import { CardsComponent } from './components/cards/cards.component';
 import { AddBookComponent } from './pages/add-book/add-book.component';
 import { UpdateBookComponent } from './pages/update-book/update-book.component';
+import { LoginComponent } from './pages/login/login.component';
+import { FormLoginComponent } from './components/form-login/form-login.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { UpdateBookComponent } from './pages/update-book/update-book.component';
     CardsComponent,
     AddBookComponent,
     UpdateBookComponent,
+    LoginComponent,
+    FormLoginComponent,
   ],
   imports: [
     BrowserModule,

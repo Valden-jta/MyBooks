@@ -24,7 +24,7 @@ export class ProfileComponent implements OnInit {
   public newName: string;
   public newLast_name: string;
   public newEmail: string;
-  public newAdress: string;
+  public newAddress: string;
   public newPhoto: string;
   public newPassword: string;
   public newPasswordCheck: string;
@@ -52,7 +52,7 @@ export class ProfileComponent implements OnInit {
     this.newName = '';
     this.newLast_name = '';
     this.newEmail = '';
-    this.newAdress = '';
+    this.newAddress = '';
     this.newPhoto = '';
   }
 
@@ -67,7 +67,7 @@ export class ProfileComponent implements OnInit {
       this.usuario.name = this.newName;
       this.usuario.last_name = this.newLast_name;
       this.usuario.email = this.newEmail;
-      this.usuario.address = this.newAdress;
+      this.usuario.address = this.newAddress;
       this.usuario.photo = this.newPhoto;
       alert('Datos de usuario actualizados');
       console.log(this.usuario.name);

@@ -3,7 +3,7 @@
     flex-wrap: wrap;
     justify-content: flex-start;
     align-items: flex-start;
-    gap:3%;
+    gap:2%;
 }
 .myCard {
     margin: 1% 0.5%;
