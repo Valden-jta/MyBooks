@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@ang
 import { BooksService } from 'src/app/shared/books.service';
 import { Book } from 'src/app/models/book';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-book',
@@ -25,7 +26,8 @@ export class AddBookComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               public booksService: BooksService,
-            private router: Router) {
+              private router: Router,
+              private toastr:ToastrService) {
    this.buildForm();
    this.ref = this.setReference(); 
   }
@@ -105,7 +107,7 @@ export class AddBookComponent implements OnInit {
 
     this.booksService.add(newBook);
     this.addedBook = newBook; // Mantén una referencia al último libro añadido
-    alert('Libro añadido correctamente');
+    this.toastr.success(`Libro añadido: ${titulo}`, '¡Exito!'); // notificación toastr
     this.books = this.booksService.getAll(); // Actualiza la lista de libros
     this.ref = this.setReference(); // Actualiza la referencia después de añadir un libro
   }

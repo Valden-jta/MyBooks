@@ -7,7 +7,7 @@
             <fieldset id="personal-data" class="form__data">
               <div class="form__element">
                 <label for="newBook_id_user" class="form__element-label">Usuario</label>
-                <input type="text" class="form__element-input" id="newBook_id_user" formControlName="usuario"
+                <input type="text" class="form-control" id="newBook_id_user" formControlName="usuario"
                   [ngClass]="{'is-invalid': (formBook.get('usuario')?.dirty || formBook.get('usuario')?.touched) && !formBook.get('usuario')?.valid}"
                   placeholder="Id de usuario" />
                 <div
@@ -18,7 +18,7 @@
               </div>
               <div class="form__element">
                 <label for="newBook_title" class="form__element-label">Titulo</label>
-                <input type="text" class="form__element-input" id="newBook_title" formControlName="titulo"
+                <input type="text" class="form-control" id="newBook_title" formControlName="titulo"
                   [ngClass]="{'is-invalid': (formBook.get('titulo')?.dirty || formBook.get('titulo')?.touched) && !formBook.get('titulo')?.valid}"
                   placeholder="Título del libro" />
                 <div
@@ -29,7 +29,7 @@
               </div>
               <div class="form__element">
                 <label for="newBook_author" class="form__element-label">Autor</label>
-                <input type="text" class="form__element-input" id="newBook_author" formControlName="autor"
+                <input type="text" class="form-control" id="newBook_author" formControlName="autor"
                   [ngClass]="{'is-invalid': (formBook.get('autor')?.dirty || formBook.get('autor')?.touched) && !formBook.get('autor')?.valid}"
                   placeholder="Autor del libro" />
                 <div
@@ -40,7 +40,7 @@
               </div>
               <div class="form__element">
                 <label for="newBook_genre" class="form__element-label">Género</label>
-                <input type="text" class="form__element-input" id="newBook_genre" formControlName="genero"
+                <input type="text" class="form-control" id="newBook_genre" formControlName="genero"
                   [ngClass]="{'is-invalid': (formBook.get('genero')?.dirty || formBook.get('genero')?.touched) && !formBook.get('genero')?.valid}"
                   placeholder="Terror, ciencia ficción..." />
                 <div
@@ -51,7 +51,7 @@
               </div>
               <div class="form__element">
                 <label for="picture" class="form__element-label">Imagen</label>
-                <input type="text" class="form__element-input" id="picture" formControlName="imagen"
+                <input type="text" class="form-control" id="picture" formControlName="imagen"
                   [ngClass]="{'is-invalid': (formBook.get('imagen')?.dirty || formBook.get('imagen')?.touched) && !formBook.get('imagen')?.valid}"
                   placeholder="Url de la imagen" />
                 <div
@@ -80,13 +80,13 @@
                   <div formArrayName="formato">
                     <div class="form__element-row" *ngFor="let type of types; let i = index">
                       <label [for]="'formato' + i" class="form__element-label">{{type.type}}</label>
-                      <input type="checkbox" [id]="'formato' + i" class="form__element-input" [formControlName]="i"
+                      <input type="checkbox" [id]="'formato' + i" class="form-control" [formControlName]="i"
                         (change)="togglePriceControl(i)">
                     </div>
                   </div>
                   <div formArrayName="precio">
                     <div class="form__element-row" *ngFor="let type of types; let i = index">
-                      <input type="number" [id]="'precio' + i" class="form__element-input" [formControlName]="i"
+                      <input type="number" [id]="'precio' + i" class="form-control" [formControlName]="i"
                         placeholder="Precio" />
                     </div>
                   </div>

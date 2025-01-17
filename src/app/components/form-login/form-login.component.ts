@@ -11,8 +11,6 @@ export class FormLoginComponent {
   public user: User;
 
 constructor() { 
-
-
   this.user = new User(0,'','','','','','','');
 };
 

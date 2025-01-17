@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Book } from '../../models/book';
 import { BooksService } from '../../shared/books.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-books',
@@ -15,7 +16,7 @@ export class BooksComponent implements OnInit {
   public bookList: Book[];
 
 
-  constructor(public booksService: BooksService) {
+  constructor(public booksService: BooksService, private toastr: ToastrService) {
     this.books = this.booksService.getAll();
     this.bookList = this.books;
   }
@@ -39,7 +40,7 @@ export class BooksComponent implements OnInit {
     let filteredBook = this.booksService.getOne(id);
     this.bookList = filteredBook ? [filteredBook] : this.bookList;
     if (!filteredBook) {
-      alert('No se ha encontrado el libro');
+      this.toastr.error('El libro que buscas no está.','Busca de nuevo!',);
     }
   }
 

@@ -9,6 +9,7 @@ import {
 import { Router } from '@angular/router';
 import { BooksService } from 'src/app/shared/books.service';
 import { Book } from 'src/app/models/book';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-update-book',
@@ -27,7 +28,8 @@ export class UpdateBookComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     public booksService: BooksService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {
     this.buildForm();
   }
@@ -103,6 +105,7 @@ export class UpdateBookComponent implements OnInit {
     if(this.booksService.edit(updatedBook)) { 
       this.targetBook(referencia);
     }
+    
   }
 
   targetBook(id: number): void {
@@ -112,7 +115,7 @@ export class UpdateBookComponent implements OnInit {
         if (card) {
           card.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
-      }, 500);
+      }, 2000);
     });
   }
 }

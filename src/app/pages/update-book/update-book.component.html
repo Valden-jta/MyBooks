@@ -7,7 +7,7 @@
                     <fieldset id="personal-data" class="form__data">
                         <div class="form__element">
                             <label for="book_id_user" class="form__element-label">Usuario</label>
-                            <input type="text" class="form__element-input" id="book_id_user" formControlName="usuario"
+                            <input type="text" class="form-control" id="book_id_user" formControlName="usuario"
                                 [ngClass]="{
                   'is-invalid':
                     (formBook.get('usuario')?.dirty ||
@@ -24,7 +24,7 @@
                         </div>
                         <div class="form__element">
                             <label for="book_title" class="form__element-label">Titulo</label>
-                            <input type="text" class="form__element-input" id="book_title" formControlName="titulo"
+                            <input type="text" class="form-control" id="book_title" formControlName="titulo"
                                 [ngClass]="{
                   'is-invalid':
                     (formBook.get('titulo')?.dirty ||
@@ -41,7 +41,7 @@
                         </div>
                         <div class="form__element">
                             <label for="book_author" class="form__element-label">Autor</label>
-                            <input type="text" class="form__element-input" id="book_author" formControlName="autor"
+                            <input type="text" class="form-control" id="book_author" formControlName="autor"
                                 [ngClass]="{
                   'is-invalid':
                     (formBook.get('autor')?.dirty ||
@@ -58,7 +58,7 @@
                         </div>
                         <div class="form__element">
                             <label for="book_genre" class="form__element-label">Género</label>
-                            <input type="text" class="form__element-input" id="book_genre" formControlName="genero"
+                            <input type="text" class="form-control" id="book_genre" formControlName="genero"
                                 [ngClass]="{
                   'is-invalid':
                     (formBook.get('genero')?.dirty ||
@@ -75,7 +75,7 @@
                         </div>
                         <div class="form__element">
                             <label for="picture" class="form__element-label">Imagen</label>
-                            <input type="text" class="form__element-input" id="picture" formControlName="imagen"
+                            <input type="text" class="form-control" id="picture" formControlName="imagen"
                                 [ngClass]="{
                   'is-invalid':
                     (formBook.get('imagen')?.dirty ||
@@ -94,7 +94,7 @@
                     <fieldset id="personal-data" class="form__data">
                         <div class="form__element">
                             <label for="book_id" class="form__element-label">Referencia</label>
-                            <input type="text" class="form__element-input" id="book_id" formControlName="referencia"
+                            <input type="text" class="form-control" id="book_id" formControlName="referencia"
                                 [ngClass]="{
                   'is-invalid':
                     (formBook.get('referencia')?.dirty ||
@@ -117,13 +117,13 @@
                                         <label [for]="'formato' + i" class="form__element-label">{{
                                             type.type
                                             }}</label>
-                                        <input type="checkbox" [id]="'formato' + i" class="form__element-input"
+                                        <input type="checkbox" [id]="'formato' + i" class="form-control"
                                             [formControlName]="i" (change)="togglePriceControl(i)" />
                                     </div>
                                 </div>
                                 <div formArrayName="precio">
                                     <div class="form__element-row" *ngFor="let type of types; let i = index">
-                                        <input type="number" [id]="'precio' + i" class="form__element-input"
+                                        <input type="number" [id]="'precio' + i" class="form-control"
                                             [formControlName]="i" placeholder="Precio" />
                                     </div>
                                 </div>

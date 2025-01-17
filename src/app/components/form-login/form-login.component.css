@@ -2,13 +2,6 @@
     width: 350px;
   }
 
-.--center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-top: 5%;
-}
 
-.invalid-feedback {
-    color: black;
-}
+
+

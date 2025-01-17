@@ -1,5 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Book } from '../models/book';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ export class BooksService implements OnInit {
 
   private books: Book[];
 
-  constructor() { 
+  constructor(private toastr: ToastrService) { 
 
     this.books = [
       new Book(
@@ -438,12 +439,13 @@ export class BooksService implements OnInit {
         oldBook.price = book.price;
         oldBook.photo = book.photo;
         oldBook.selected = book.selected;
-        alert('Libro editado correctamente');
+        this.toastr.success(`Libro editado: ${book.title}`, '¡Exito!'); 
         return true;
       } else {
-        alert('El id del libro no existe');
+        this.toastr.error('El libro que buscas no está.','¡Error!')
         return false;
       }
+      
   }
 
   delete(id_book:number): boolean {
@@ -451,10 +453,10 @@ export class BooksService implements OnInit {
     if (searchBook) {
       let deletedBook = this.books.indexOf(searchBook);
       this.books.splice(deletedBook, 1);
-      alert('Libro eliminado correctamente');
+      this.toastr.success('Libro eliminado', '¡Exito!'); 
       return true;
     } else {
-      alert('El id del libro no existe');
+      this.toastr.error('El libro que buscas no está.','¡Error!')
       return false;
     }
   }

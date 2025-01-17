@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import  { User } from '../../models/user';
 
 @Component({
   selector: 'app-form-register',
@@ -7,30 +9,57 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FormRegisterComponent implements OnInit {
 
-  mensaje: string = 'esperando info';
-  msgClass: string = 'info-msg';
-  password:string = '';
-  passwordCheck:string = '';
+  public formRegister!: FormGroup;
+  public newUser: User;
   
-  constructor() {}
+  constructor(private formRegisterBuilder: FormBuilder) {
+    this.newUser = new User(0,'','','','','','','');
+    this.buildForm();
+  }
 
   ngOnInit(): void {}
 
-  checkPassword(password:string, passwordCheck:string): void {
+  
+private buildForm() {
+    this.formRegister = this.formRegisterBuilder.group({
+      nombre: ['',[Validators.required]],
+      apellidos: ['',[Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      direccion: ['',[Validators.required]],
+      user: ['',[Validators.required]],
+      password: ['', [Validators.required, this.regExpPassword]],
+      password2:['',[Validators.required, this.checkPassword]],
+    });
+    
+}
 
-    this.password = password;
-    this.passwordCheck = passwordCheck;
+  private regExpPassword(control: AbstractControl) {
+    const regexp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/;
+    if(!regexp.test(control.value)) {
+      return {invalidPassword: true}
+    }
+    return null;
+  }
 
-    if (password == '' ||
-      passwordCheck == '') {
-      this.mensaje = 'Debes introducir una contraseña';
-      this.msgClass = 'info-msg --error';
-    } else if (!(password === passwordCheck)){
-      this.mensaje = 'Las contraseñas no coinciden';
-      this.msgClass = 'info-msg --error';
+  private checkPassword(control: AbstractControl) {
+    if (control.parent?.value.password !== control.value) {
+      return {unMatchPassword: true}
+    } 
+    return null;
+  }
+
+  public onSubmit() {
+    console.log('enviando formulario');
+    if (this.formRegister.valid) {
+      this.newUser.name = this.formRegister.value.nombre;
+      this.newUser.last_name = this.formRegister.value.apellidos;
+      this.newUser.user_name = this.formRegister.value.user;
+      this.newUser.email = this.formRegister.value.email;
+      this.newUser.address = this.formRegister.value.direccion;
+      this.newUser.password = this.formRegister.value.password;
+      console.log(this.newUser);
     } else {
-      this.mensaje = 'Todo correcto';
-      this.msgClass = 'info-msg --ok';
+      console.log('Formulario inválido');
     }
   }
 }
