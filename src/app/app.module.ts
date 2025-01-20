@@ -6,8 +6,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
 import { FormRegisterComponent } from './components/form-register/form-register.component';
 import { HomeComponent } from './pages/home/home.component';
 import { RegisterComponent } from './pages/register/register.component';
@@ -23,8 +23,8 @@ import { FormLoginComponent } from './components/form-login/form-login.component
 @NgModule({
   declarations: [
     AppComponent,
-    FooterComponent,
     HeaderComponent,
+    FooterComponent,
     FormRegisterComponent,
     HomeComponent,
     RegisterComponent,
