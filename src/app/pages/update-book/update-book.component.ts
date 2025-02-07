@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { BooksService } from 'src/app/shared/books.service';
 import { Book } from 'src/app/models/book';
 import { ToastrService } from 'ngx-toastr';
+import { ApiAnswer } from 'src/app/models/api-answer';
 
 @Component({
   selector: 'app-update-book',
@@ -19,6 +20,7 @@ import { ToastrService } from 'ngx-toastr';
 export class UpdateBookComponent implements OnInit {
   public books: Book[] = [];
   public formBook!: FormGroup;
+  public updatedBook?: Book;
   public types: { type: string; price: number }[] = [
     { type: 'ebook', price: 0 },
     { type: 'tapa blanda', price: 0 },
@@ -90,7 +92,7 @@ export class UpdateBookComponent implements OnInit {
       .map((control, i) => (this.formato.at(i).value ? control.value : ''))
       .filter((value) => value !== null);
 
-    let updatedBook: Book = new Book(
+    this.updatedBook = new Book(
       parseInt(referencia),
       parseInt(usuario),
       titulo,
@@ -101,11 +103,16 @@ export class UpdateBookComponent implements OnInit {
       imagen,
       0
     );
-
-    if(this.booksService.edit(updatedBook)) { 
-      this.targetBook(referencia);
-    }
-    
+   
+    this.booksService.edit(this.updatedBook).subscribe((res:ApiAnswer) =>{
+      if (!res.error) {
+        console.log(res);
+        this.toastr.success(res.message, '',{timeOut:2000, positionClass:'toast-top-right'});
+        this.targetBook(referencia);
+      } else {
+        this.toastr.error(res.message, '',{timeOut:2000, positionClass:'toast-top-right'});
+      }
+    });
   }
 
   targetBook(id: number): void {

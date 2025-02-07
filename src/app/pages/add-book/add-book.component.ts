@@ -4,6 +4,7 @@ import { BooksService } from 'src/app/shared/books.service';
 import { Book } from 'src/app/models/book';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { ApiAnswer } from 'src/app/models/api-answer';
 
 @Component({
   selector: 'app-add-book',
@@ -52,7 +53,14 @@ export class AddBookComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.books = this.booksService.getAll();
+    this.booksService.getAll().subscribe((res: ApiAnswer) => {
+      if (!res.error) {
+        this.books = res.data;
+        this.ref = this.setReference();
+      } else {
+        this.toastr.error(res.message,'', {timeOut:2000, positionClass: 'toast-top-left'});
+      }
+    });
   }
 
   get formato(): FormArray {
@@ -74,9 +82,7 @@ export class AddBookComponent implements OnInit {
   }
 
   setReference(): number {
-    return this.booksService.getAll().length + 1;
-    
-     
+    return this.books.length + 1;
   }
 
   anyadirLibro() {
@@ -105,19 +111,23 @@ export class AddBookComponent implements OnInit {
       0
     );
 
-    this.booksService.add(newBook);
-    this.addedBook = newBook; // Mantén una referencia al último libro añadido
-    this.toastr.success(`Libro añadido: ${titulo}`, '¡Exito!'); // notificación toastr
-    this.books = this.booksService.getAll(); // Actualiza la lista de libros
-    this.ref = this.setReference(); // Actualiza la referencia después de añadir un libro
+    this.booksService.add(newBook).subscribe((res: ApiAnswer)=>{
+      if (!res.error) {
+        this.addedBook = newBook; 
+        this.toastr.success(res.message, '',{timeOut:2000, positionClass:'toast-top-right'});
+      } else {
+        this.toastr.error(res.message, '',{timeOut:2000, positionClass:'toast-top-right'});
+      }
+    });
+    this.ref = this.setReference();
   }
 
-  eliminarLibro(book: Book): void {
-    const index = this.books.indexOf(book);
-    if (index > -1) {
-      this.books.splice(index, 1);
-    }
-  }
+  // eliminarLibro(book: Book): void {
+  //   const index = this.books.indexOf(book);
+  //   if (index > -1) {
+  //     this.books.splice(index, 1);
+  //   }
+  // }
 
   targetBook(id: number): void {
     this.router.navigate(['/books']).then(() => {

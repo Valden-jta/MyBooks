@@ -22,7 +22,11 @@ export class CardsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.bookListPadre.forEach(book => {
+      if (book.selected === undefined || book.selected === null) {
+        book.selected = 0; // Establece un valor predeterminado para selected
+      }
+    });
   }
 
   //* Funionalidad para seleccionar el formato y el precio del libro
@@ -31,7 +35,10 @@ export class CardsComponent implements OnInit {
   }
 
   mostrarPrecio(book: Book): number {
-    return book.price[book.selected];
+    if (book.selected !== undefined && book.price && book.price.length > book.selected) {
+      return book.price[book.selected];
+    }
+    return 0; 
   }
 
 //* Funcionalidad para eliminar un libro (comunicación hijo-padre) 
